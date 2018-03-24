@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <ImageButton
+        android:id="@+id/bback"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="30dp"
+        android:background="@drawable/back"
+        android:clickable="true"/>
+
+    <ImageView
+        android:id="@+id/nChar"
+        android:layout_marginLeft="45dp"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:srcCompat="@drawable/npc2" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginLeft="80dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Customize Your Stick"
+            android:textSize="20dp"
+            android:textColor="@android:color/black"
+            />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Strength (STR)"
+                android:textSize="17dp"
+                android:textColor="@android:color/black"/>
+            <EditText
+                android:id="@+id/str"
+                android:layout_width="35dp"
+                android:layout_height="wrap_content"
+                android:ems="3"
+                android:inputType="textPersonName"
+                android:text="6"
+                android:textAlignment="center"
+                android:textColor="@android:color/black"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Agility (AGI)"
+                android:textSize="17dp"
+                android:textColor="@android:color/black"
+                />
+            <EditText
+                android:id="@+id/agi"
+                android:layout_width="35dp"
+                android:layout_height="wrap_content"
+                android:ems="3"
+                android:textAlignment="center"
+                android:inputType="textPersonName"
+                android:text="12"
+                android:textColor="@android:color/black"
+                />
+            <ImageButton
+                android:layout_marginLeft="45dp"
+                android:layout_width="60dp"
+                android:layout_height="70dp"
+                android:background="@drawable/reroll" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Intelligence (INT)"
+                android:textSize="17dp"
+                android:textColor="@android:color/black"/>
+            <EditText
+                android:id="@+id/intel"
+                android:layout_width="35dp"
+                android:layout_height="wrap_content"
+                android:ems="3"
+                android:textAlignment="center"
+                android:inputType="textPersonName"
+                android:text="2"
+                android:textColor="@android:color/black"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginRight="20dp">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="START"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

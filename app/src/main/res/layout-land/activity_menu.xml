@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context="com.example.richardoalvin.trappedstickworld.MenuActivity">
+
+    <TextView
+        android:id="@+id/stick"
+        android:layout_marginTop="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TrappedStick"
+        android:textSize="35dp"
+        android:textColor="@android:color/black"/>
+
+    <Button
+        android:id="@+id/newG"
+        android:layout_marginTop="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="NEW GAME"
+        android:textSize="17dp" />
+
+    <Button
+        android:id="@+id/con"
+        android:layout_marginTop="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CONTINUE"
+        android:textSize="17dp"/>
+
+    <Button
+        android:id="@+id/info"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="right|bottom"
+        android:layout_marginRight="5dp"
+        android:text="i"
+        android:textStyle="italic" />
+</LinearLayout>
