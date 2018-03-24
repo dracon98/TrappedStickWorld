@@ -12,6 +12,7 @@ public class MenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+        //onclick button
         NewGame = (Button)findViewById(R.id.newG);
         NewGame.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -20,6 +21,8 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
     }
+    //intent
+    //move to custom activity
     public void MoveToCustom(){
         try {
             Intent k = new Intent(this, CustomActivity.class);

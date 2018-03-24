@@ -10,7 +10,7 @@ import android.content.Intent;
 
 import java.util.Random;
 
-/**
+/*
  * Created by Richardo Alvin on 3/24/2018.
  */
 
@@ -34,13 +34,15 @@ public class CustomActivity extends AppCompatActivity {
                 MoveToMenu();
             }
     });
+        //initialisation
         Agi = (EditText) findViewById(R.id.agi);
         Str = (EditText) findViewById(R.id.str);
         Intel = (EditText) findViewById(R.id.intel);
         Agi.setEnabled(false);
         Str.setEnabled(false);
         Intel.setEnabled(false);
-
+        //onclick
+        //change the number on edit text
         roll = (ImageButton) findViewById(R.id.rollId);
         roll.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -48,6 +50,7 @@ public class CustomActivity extends AppCompatActivity {
                 RandomPoint();
             }
         });
+        //move to main activity which is the game itself
         Start = (Button) findViewById(R.id.startID);
         Start.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -56,6 +59,7 @@ public class CustomActivity extends AppCompatActivity {
             }
         });
     }
+    //Intent
         public void MoveToMenu(){
             try {
                 Intent k = new Intent(this, MenuActivity.class);
@@ -72,6 +76,7 @@ public class CustomActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+        //randomise stats point
         public  void RandomPoint(){
             Random r = new Random();
             int i = r.nextInt(10) + 1;
@@ -80,8 +85,8 @@ public class CustomActivity extends AppCompatActivity {
             int j = 21 - o - i;
             int n = 21 - in - i;
             int m = 21 - in - o;
-            Agi.setText(Integer.toString(j));
-            Str.setText(Integer.toString(n));
-            Intel.setText(Integer.toString(m));
+            Agi.setText(String.valueOf(j));
+            Str.setText(String.valueOf(n));
+            Intel.setText(String.valueOf(m));
         }
 }
