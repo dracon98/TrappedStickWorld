@@ -22,7 +22,8 @@
             android:name=".CustomActivity"
             android:screenOrientation="landscape">
         </activity>
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity"
+            android:screenOrientation="landscape"></activity>
     </application>
 
 </manifest>
