@@ -1,0 +1,36 @@
+[{
+	"name": "Seated NPC",
+	"gender": "Male",
+	"item": "Cigarrete",
+	"status": "Barely alive"
+}, {
+	"name": "Dead NPC",
+	"gender": "Male",
+	"item": ["Blood", "knife"],
+	"status": "Dead by knife"
+}, {
+	"name": "Suspected NPC",
+	"gender": "Male",
+	"item": "Face mask",
+	"status": "Angry"
+}, {
+	"name": "Sick NPC",
+	"gender": "Female",
+	"item": "Hospital robe",
+	"status": "In a brink of dead"
+}, {
+	"name": "Gangster NPC",
+	"gender": "Male",
+	"item": ["knife", "bullet", "pistol", "knuckle"],
+	"status": "Wickedly healthy"
+}, {
+	"name": "The first NPC",
+	"gender": "Unknown",
+	"item": "Unknown",
+	"status": "Bored but happy"
+}, {
+	"name": "The second NPC",
+	"gender": "Unknown",
+	"item": "skateboard",
+	"status": "Angry but tired"
+}]
