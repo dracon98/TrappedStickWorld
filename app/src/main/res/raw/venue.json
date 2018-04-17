@@ -1,29 +1,34 @@
-[{
-		"name": "House",
-		"function": "Save House"
-	},
+[
 	{
-		"name": "Bank",
-		"function": "Deposit, Withdraw, Loan, Buy properties"
-	},
-	{
-		"name": "Dojou",
-		"function": "Training"
-	},
-	{
-		"name": "Office",
-		"function": "Work"
-	},
-	{
-		"name": "Bar and Restaurant",
-		"function": "Eat, Fight, Gamble"
-	},
-	{
-		"name": "E-store",
-		"function": "Buy furniture and stuffs"
-	},
-	{
-		"name": "Portal",
-		"function": "Teleportation"
+		"venue": [
+			{
+				"name": "House",
+				"function": "Save House"
+			},
+			{
+				"name": "Bank",
+				"function": "Deposit, Withdraw, Loan, Buy properties"
+			},
+			{
+				"name": "Dojou",
+				"function": "Training"
+			},
+			{
+				"name": "Office",
+				"function": "Work"
+			},
+			{
+				"name": "Bar and Restaurant",
+				"function": "Eat, Fight, Gamble"
+			},
+			{
+				"name": "E-store",
+				"function": "Buy furniture and stuffs"
+			},
+			{
+				"name": "Portal",
+				"function": "Teleportation"
+			}
+		]
 	}
 ]
