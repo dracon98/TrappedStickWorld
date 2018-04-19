@@ -1,5 +1,6 @@
 package com.example.richardoalvin.trappedstickworld;
 
+import android.app.Dialog;
 import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
     Handler loops = new Handler();
     public float X;
+    Dialog dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
         Button Left = (Button) findViewById(R.id.left);
         Button Right = (Button) findViewById(R.id.right);
+        dialog = new Dialog(this);
 
         Left.setOnTouchListener(new View.OnTouchListener() {
 
@@ -76,6 +79,10 @@ public class MainActivity extends AppCompatActivity {
             };
         });
     }
+    public void showPopup(View view){
+        dialog.setContentView(R.layout.popup);
+        dialog.show();
+    }
     private void mLeft(){
         TextView txtDisplay = (TextView) findViewById(R.id.textView);
         txtDisplay.setX(X-30);
@@ -92,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
     public void moveLeft (View view){
         mLeft();
     }
+
     /*public void loadJson(View view){
         Resources res = getResources();
         InputStream is = res.openRawResource(R.raw.venue);
