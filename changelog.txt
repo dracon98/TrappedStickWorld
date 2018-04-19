@@ -1,7 +1,9 @@
 DD-MM-YYYY - Richardo Wijaya <Richardoalvin.war@gmail.com||rwijaya@deakin.edu.au>
-24-03-2018 * First Commit - Creating UI/UX for both MAIN MENU & STATS Allocation
+24-03-2018 * First Commit - Creating UI/UX for both MAIN MENU 
 
-
+31-03-2018 * First development was for the stats allocation on the 4th week
+12-03-2018 * Creating a raw folder for all json file and creating venue & NPC Json file
+18-03-2018 * Game movement roughly completed, there maybe changes to this in the future development
 # Henry comments 13/April
 - Not enough commits + changelog items to pass at this frequency.
 - I couldn't find your text-based data. Create a root folder "data/" and put all your JSON files in there.
