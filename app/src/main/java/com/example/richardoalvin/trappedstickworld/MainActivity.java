@@ -1,11 +1,14 @@
 package com.example.richardoalvin.trappedstickworld;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -17,7 +20,7 @@ import java.util.Scanner;
 import java.util.Timer;
 import android.os.Handler;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     Handler loops = new Handler();
     public float X;
@@ -25,9 +28,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        setContentView(new GamePanel(this));
 
-        Button Left = (Button) findViewById(R.id.left);
+    }
+        /*Button Left = (Button) findViewById(R.id.left);
         Button Right = (Button) findViewById(R.id.right);
         dialog = new Dialog(this);
 
@@ -99,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
     public void moveLeft (View view){
         mLeft();
     }
-
+    */
     /*public void loadJson(View view){
         Resources res = getResources();
         InputStream is = res.openRawResource(R.raw.venue);
