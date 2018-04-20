@@ -13,3 +13,6 @@
 - I couldn't find your text-based data. Create a root folder "data/" and put all your JSON files in there.
 - You're still missing a licenses.txt file.
 
+# Richardo apologies on what henry said on 13/April
+- My apologies that the commits + changelog items are not up to your standard at that time
+- Last week had been really packed and I will redeem it on these week
