@@ -33,6 +33,7 @@ public class MainActivity extends Activity {
         setContentView(new GamePanel(this));
 
     }
+    //Player movement coding
         /*Button Left = (Button) findViewById(R.id.left);
         Button Right = (Button) findViewById(R.id.right);
         dialog = new Dialog(this);
@@ -106,6 +107,7 @@ public class MainActivity extends Activity {
         mLeft();
     }
     */
+        // load json coding
     /*public void loadJson(View view){
         Resources res = getResources();
         InputStream is = res.openRawResource(R.raw.venue);
