@@ -15,8 +15,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private MainThread thread;
     private Player player;
     private Background bg;
-    public static final int WIDTH =800 ;
-    public static final int HEIGHT =533;
+    public static final int WIDTH =115 ;
+    public static final int HEIGHT =266;
     public GamePanel(Context context){
         super(context);
         getHolder().addCallback(this);
@@ -31,8 +31,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
-        //player = new Player(BitmapFactory.decodeResource(getResources(),R.drawable.walk_pic),30,80,3);
-        bg = new Background(BitmapFactory.decodeResource(getResources(),R.drawable.bg));
+        //player = new Player(BitmapFactory.decodeResource(getResources(),R.drawable.walk_pic),300,800,3);
+        bg = new Background(BitmapFactory.decodeResource(getResources(),R.drawable.stick));
         bg.setVector(-5);
         thread.start();
         thread.setRunning(true);
@@ -68,15 +68,15 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         super.draw(canvas);
         final float scaleX = 1500/WIDTH;
         final float scaleY = 900/HEIGHT;
-        if (canvas != null){
+        /*if (canvas != null){
             final int savedStates = canvas.save();
              canvas.scale(scaleX,scaleY);
             bg.draw(canvas);
             canvas.restoreToCount(savedStates);
             System.out.println(bg.x+ " , " + bg.y);
         }
-
-        //bg.draw(canvas);
+        */
+        bg.draw(canvas);
 
         //player.draw(canvas);
     }
