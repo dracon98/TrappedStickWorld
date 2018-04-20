@@ -1,6 +1,53 @@
 {
-  "name": "Seated NPC",
-  "gender": "Male",
-  "item": "Cigarrete",
-  "status": "Barely alive"
+  "item":
+  [
+    {
+      "name":"Cigarette",
+      "function":"you can either give it to someone or just use it",
+      "from":"buy",
+      "effect": "health - 5",
+      "give": "sitting npc"
+    },
+    {
+      "name":"Knife",
+      "function":"fight",
+      "from": ["buy","drop","quest"],
+      "effect": "STR + 5",
+      "give": "None"
+    },
+    {
+      "name":"Hood",
+      "function":"use it",
+      "from":"quest",
+      "effect": "AGI + 5, will be apprehended when use it before noon",
+      "give": "None"
+    },
+    {
+      "name":"Hospital Robe",
+      "function":"free health",
+      "from": ["quest"],
+      "effect": "Health + 10, when go to hospital",
+      "give": "None"
+    },
+    {
+    "name":"Pistol",
+    "function":"fight",
+    "from": ["buy","drop","quest"],
+    "effect": "STR + 15, can only be used when there is a bullet",
+    "give": "None"
+    },{
+    "name":"Bullet",
+    "function":"fight",
+    "from": ["buy","drop","quest"],
+    "effect": "can only be used along side with Pistol",
+    "give": "None"
+  },
+    {
+      "name":"Money",
+      "function":"buy",
+      "from": ["work","drop","quest"],
+      "effect": "Time + 2 mins",
+      "give": ["Suspected NPC","Gangster NPC"]
+    }
+  ]
 }
