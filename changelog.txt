@@ -7,9 +7,17 @@ DD-MM-YYYY - Richardo Wijaya <Richardoalvin.war@gmail.com||rwijaya@deakin.edu.au
 19-04-2018 * GamePanel and MainThread.java created, 
              GamePanel is created for the controller of the game
              MainThread Frame counting or FPS
-20-04-2018 * 
+20-04-2018 * Background.Java, Player.Java, Animation.Java, Item.Json are created
+             Background is for the test of background implementation with a scrolling background system
+             Player is added into the screen, Player movement that had been created is commented because of Button movement development 
+             Animation of player is added to screen
+             Item.Json is for complementary of the game 
+
 # Henry comments 13/April
 - Not enough commits + changelog items to pass at this frequency.
 - I couldn't find your text-based data. Create a root folder "data/" and put all your JSON files in there.
 - You're still missing a licenses.txt file.
 
+# Richardo apologies on what henry said on 13/April
+- My apologies that the commits + changelog items are not up to your standard at that time
+- Last week had been really packed and I will redeem it on these week
