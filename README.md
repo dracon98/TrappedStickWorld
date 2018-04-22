@@ -6,6 +6,14 @@
 # Project Name: Trapped Stick
 # RPG GAME with Stickman as the theme
 
+The first step is to download the whole file and click my folder.
+Then choose build.gradle select Android studio as the open method
+After that you have open my project, just simply click green triangle shape that located in the right top corner of the page.
+Then select a virtual machine and click ok button to run the app
+If there is not virtual machine then create one from the phone or tablet. It does not matter, because the game support both of them.     Also, the game only support landscape display.
+Then click next button, choose a recommended system image then click next button
+Now click finish then you have done, enjoy to run the game directory explanation
+
 (Henry wants to also see both licenses.txt and changelog files)
 
 # Henry comments 13/April
