@@ -13,7 +13,7 @@ import android.view.SurfaceHolder;
 
 public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private MainThread thread;
-    private Player player;
+    //private Player player;
     private Background bg;
     public static final int WIDTH =115 ;
     public static final int HEIGHT =266;
@@ -31,7 +31,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
-        player = new Player(BitmapFactory.decodeResource(getResources(),R.drawable.walk_pic),41,106,3);
+        //player = new Player(BitmapFactory.decodeResource(getResources(),R.drawable.walk_pic),41,106,3);
         bg = new Background(BitmapFactory.decodeResource(getResources(),R.drawable.map2d));
         bg.setVector(-5);
         thread.start();
@@ -58,7 +58,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         return super.onTouchEvent(event);
     }
     public void update(){
-        player.update();
+    //    player.update();
 
         //bg.update();
     }
@@ -76,7 +76,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             canvas.restoreToCount(savedStates);
             System.out.println(bg.x+ " , " + bg.y);
         }
-        player.draw(canvas);
+       // player.draw(canvas);
 
 
 

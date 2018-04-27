@@ -2,7 +2,14 @@ package com.example.richardoalvin.trappedstickworld;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
+import android.media.Image;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -10,6 +17,8 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.json.JSONException;
@@ -20,23 +29,21 @@ import java.util.Scanner;
 import java.util.Timer;
 import android.os.Handler;
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
 
     Handler loops = new Handler();
     public float X;
     Dialog dialog;
+    public ImageView main;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(new GamePanel(this));
-
-    }
+        setContentView(R.layout.activity_main);
+        main = (ImageView) findViewById(R.id.StickMan);
+        main.setY(300);
     //Player movement coding
-        /*Button Left = (Button) findViewById(R.id.left);
+        Button Left = (Button) findViewById(R.id.left);
         Button Right = (Button) findViewById(R.id.right);
-        dialog = new Dialog(this);
 
         Left.setOnTouchListener(new View.OnTouchListener() {
 
@@ -44,10 +51,11 @@ public class MainActivity extends Activity {
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
+
                         loops.postDelayed(Lmove, 250);
+                        changeL();
                         break;
                     case MotionEvent.ACTION_UP:
-
                         loops.removeCallbacks(Lmove);
                         break;
                 }
@@ -57,6 +65,7 @@ public class MainActivity extends Activity {
                 @Override
                 public void run() {
                     mLeft();
+                    changeL();
                     loops.postDelayed(this,250);
                 }
             };
@@ -69,6 +78,7 @@ public class MainActivity extends Activity {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         loops.postDelayed(Rmove, 250);
+                        changeR();
                         break;
                     case MotionEvent.ACTION_UP:
 
@@ -81,24 +91,35 @@ public class MainActivity extends Activity {
                 @Override
                 public void run() {
                     mRight();
+                    changeR();
                     loops.postDelayed(this,250);
                 }
             };
         });
     }
-    public void showPopup(View view){
-        dialog.setContentView(R.layout.popup);
-        dialog.show();
-    }
     private void mLeft(){
-        TextView txtDisplay = (TextView) findViewById(R.id.textView);
-        txtDisplay.setX(X-30);
-        X = X-30;
+        ImageView imgDisplay = (ImageView) findViewById(R.id.StickMain);
+        imgDisplay.setX(X-50);
+        X = X-50;
     }
     private void mRight(){
-        TextView txtDisplay = (TextView) findViewById(R.id.textView);
-        txtDisplay.setX(X+30);
-        X = X+30;
+        ImageView imgDisplay = (ImageView) findViewById(R.id.StickMain);
+        imgDisplay.setX(X+50);
+        X = X+50;
+    }
+    private void changeR(){
+        if (main.getBackground().getConstantState()== getResources().getDrawable(R.drawable.stand).getConstantState()
+                ||main.getBackground().getConstantState()== getResources().getDrawable(R.drawable.stand1).getConstantState())
+            main.setBackgroundResource(R.drawable.walk);
+        else
+            main.setBackgroundResource(R.drawable.stand);
+    }
+    private void changeL(){
+        if (main.getBackground().getConstantState()== getResources().getDrawable(R.drawable.stand).getConstantState()
+                ||main.getBackground().getConstantState()== getResources().getDrawable(R.drawable.stand1).getConstantState())
+            main.setBackgroundResource(R.drawable.walk1);
+        else
+            main.setBackgroundResource(R.drawable.stand1);
     }
     public void moveRight(View view){
         mRight();
@@ -106,7 +127,7 @@ public class MainActivity extends Activity {
     public void moveLeft (View view){
         mLeft();
     }
-    */
+
         // load json coding
     /*public void loadJson(View view){
         Resources res = getResources();
