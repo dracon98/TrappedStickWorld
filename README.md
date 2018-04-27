@@ -24,3 +24,7 @@ Now click finish then you have done, enjoy to run the game directory explanation
 # Richardo apologies on what henry said on 13/April
 - My apologies that the commits + changelog items are not up to your standard at that time
 - Last week had been really packed and I will redeem it on these week
+
+# Henry comments 27/April
+- Good to see you starting to develop data/
+- This file still needs compile instructions, and directory explanation so I know where to find stuff.
