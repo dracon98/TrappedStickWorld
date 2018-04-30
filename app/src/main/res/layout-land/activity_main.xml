@@ -1,10 +1,9 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.richardoalvin.trappedstickworld.MainActivity">
-
 
     <Button
         android:id="@+id/left"
@@ -19,31 +18,36 @@
 
         android:layout_height="match_parent"
         android:layout_gravity="right"
+        android:background="@android:color/transparent"
         android:onClick="moveRight"
-        android:background="@android:color/transparent"/>
+        android:layout_alignParentRight="true"
+        />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/MovingText"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:textColor="@android:color/white"
             android:background="@android:color/background_dark" />
 
         <ImageView
+            android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/map1">
-        </ImageView>
+            android:background="@drawable/map1"></ImageView>
     </LinearLayout>
 
     <ImageView
-        android:id="@id/StickMan"
+        android:id="@+id/StickMan"
         android:layout_width="48dp"
         android:layout_height="128dp"
         android:background="@drawable/stand" />
-
-
-</FrameLayout>
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</RelativeLayout>

@@ -27,13 +27,23 @@ import org.json.JSONObject;
 import java.io.InputStream;
 import java.util.Scanner;
 import java.util.Timer;
+import java.util.TimerTask;
+
 import android.os.Handler;
 
 public class MainActivity extends AppCompatActivity {
 
     Handler loops = new Handler();
+    final Timer myTimer = new Timer();
+    Handler myHandler = new Handler();
     public float X;
+    TextView moveText;
+    int i = 0;
     Dialog dialog;
+    public String[] text = {"\"You: Ahh Where is this? \"",
+            "Hey Welcome to the StickWorld and this is gonna be your new house now",
+            "You: Me? I cant even remember anything about myself...","" +
+            "Well you should be able to adapt with the condition here and you might be able to remember your past"};
     public ImageView main;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
     //Player movement coding
         Button Left = (Button) findViewById(R.id.left);
         Button Right = (Button) findViewById(R.id.right);
-
+        moveText = (TextView) findViewById(R.id.MovingText);
         Left.setOnTouchListener(new View.OnTouchListener() {
 
             @Override
@@ -52,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
 
-                        loops.postDelayed(Lmove, 250);
+                        loops.postDelayed(Lmove, 100);
                         changeL();
                         break;
                     case MotionEvent.ACTION_UP:
@@ -66,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
                 public void run() {
                     mLeft();
                     changeL();
-                    loops.postDelayed(this,250);
+                    loops.postDelayed(this,180);
                 }
             };
         });
@@ -77,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        loops.postDelayed(Rmove, 250);
+                        loops.postDelayed(Rmove, 100);
                         changeR();
                         break;
                     case MotionEvent.ACTION_UP:
@@ -92,18 +102,24 @@ public class MainActivity extends AppCompatActivity {
                 public void run() {
                     mRight();
                     changeR();
-                    loops.postDelayed(this,250);
+                    loops.postDelayed(this,180);
                 }
             };
         });
+        TimerTask myTask = new TimerTask() {
+            public void run() {
+                update_text(); // text update method
+            }
+        };
+        myTimer.schedule(myTask,0,2500);
     }
     private void mLeft(){
-        ImageView imgDisplay = (ImageView) findViewById(R.id.StickMain);
+        ImageView imgDisplay = (ImageView) findViewById(R.id.StickMan);
         imgDisplay.setX(X-50);
         X = X-50;
     }
     private void mRight(){
-        ImageView imgDisplay = (ImageView) findViewById(R.id.StickMain);
+        ImageView imgDisplay = (ImageView) findViewById(R.id.StickMan);
         imgDisplay.setX(X+50);
         X = X+50;
     }
@@ -126,6 +142,24 @@ public class MainActivity extends AppCompatActivity {
     }
     public void moveLeft (View view){
         mLeft();
+    }
+    final Runnable myRunnable = new Runnable() {
+        public void run() {
+            moveText.setText(text[i -1]); // update text
+        }
+    };
+
+    // update_text method related to a Runnable
+    private void update_text() {
+
+        if(i < text.length) {
+            i++;
+            // text_data.setText(String.valueOf(i)); = avoid the RunTime error
+            myHandler.post(myRunnable); // relate this to a Runnable
+        } else {
+            myTimer.cancel(); // stop the timer
+            return;
+        }
     }
 
         // load json coding

@@ -7,7 +7,7 @@ import static android.R.color.white;
 
 /**
  * Created by Richardo Alvin on 4/19/2018.
- */
+
 
 public class Player extends GameObject {
     private Bitmap sprite;
@@ -56,3 +56,4 @@ public class Player extends GameObject {
         canvas.drawBitmap(animation.getImage(), x, y, null);
     }
 }
+*/
