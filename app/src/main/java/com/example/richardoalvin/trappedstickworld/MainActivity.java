@@ -3,6 +3,7 @@ package com.example.richardoalvin.trappedstickworld;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
@@ -17,6 +18,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -54,7 +56,14 @@ public class MainActivity extends AppCompatActivity {
     //Player movement coding
         Button Left = (Button) findViewById(R.id.left);
         Button Right = (Button) findViewById(R.id.right);
+        ImageButton house = (ImageButton) findViewById(R.id.HouseDoor);
         moveText = (TextView) findViewById(R.id.MovingText);
+        house.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                House();
+            }
+        });
         Left.setOnTouchListener(new View.OnTouchListener() {
 
             @Override
@@ -85,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
+
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         loops.postDelayed(Rmove, 100);
@@ -161,7 +171,14 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
     }
-
+        public void House(){
+            try {
+                Intent k = new Intent(this, House.class);
+                startActivity(k);
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+        }
         // load json coding
     /*public void loadJson(View view){
         Resources res = getResources();

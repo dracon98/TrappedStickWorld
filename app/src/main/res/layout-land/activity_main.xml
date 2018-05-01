@@ -9,7 +9,6 @@
         android:id="@+id/left"
         android:layout_width="250dp"
         android:layout_height="match_parent"
-        android:onClick="moveLeft"
         android:background="@android:color/transparent" />
 
     <Button
@@ -19,7 +18,6 @@
         android:layout_height="match_parent"
         android:layout_gravity="right"
         android:background="@android:color/transparent"
-        android:onClick="moveRight"
         android:layout_alignParentRight="true"
         />
 
@@ -41,13 +39,20 @@
             android:layout_height="match_parent"
             android:background="@drawable/map1"></ImageView>
     </LinearLayout>
-
+    <ImageButton
+        android:layout_width="48dp"
+        android:layout_height="128dp"
+        android:id="@+id/HouseDoor"
+        android:background="@drawable/door"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="112dp"
+        android:layout_marginStart="112dp"
+        android:translationZ="2dp"/>
     <ImageView
         android:id="@+id/StickMan"
         android:layout_width="48dp"
         android:layout_height="128dp"
-        android:background="@drawable/stand" />
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:background="@drawable/stand"
+        android:translationZ="5dp"/>
+
 </RelativeLayout>
