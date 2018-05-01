@@ -57,11 +57,18 @@ public class MainActivity extends AppCompatActivity {
         Button Left = (Button) findViewById(R.id.left);
         Button Right = (Button) findViewById(R.id.right);
         ImageButton house = (ImageButton) findViewById(R.id.HouseDoor);
+        ImageButton office = (ImageButton) findViewById(R.id.OfficeDoor);
         moveText = (TextView) findViewById(R.id.MovingText);
         house.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 House();
+            }
+        });
+        office.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Office();
             }
         });
         Left.setOnTouchListener(new View.OnTouchListener() {
@@ -179,6 +186,14 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+    public void Office(){
+        try {
+            Intent k = new Intent(this, Office.class);
+            startActivity(k);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
         // load json coding
     /*public void loadJson(View view){
         Resources res = getResources();

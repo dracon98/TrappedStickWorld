@@ -48,6 +48,15 @@
         android:layout_marginLeft="112dp"
         android:layout_marginStart="112dp"
         android:translationZ="2dp"/>
+    <ImageButton
+        android:layout_width="80dp"
+        android:layout_height="148dp"
+        android:id="@+id/OfficeDoor"
+        android:background="@drawable/door2"
+        android:translationZ="2dp"
+        android:layout_marginTop="90dp"
+        android:layout_marginLeft="400dp"
+        android:layout_marginStart="400dp" />
     <ImageView
         android:id="@+id/StickMan"
         android:layout_width="48dp"
