@@ -12,6 +12,8 @@ DD-MM-YYYY - Richardo Wijaya <Richardoalvin.war@gmail.com||rwijaya@deakin.edu.au
              Player is added into the screen, Player movement that had been created is commented because of Button movement development 
              Animation of player is added to screen
              Item.Json is for complementary of the game 
+26-04-2018 * Database and any related to assessing data
+27-04-2018 * Completion of the main interface of the game and any miscellaneous thing
 
 # Henry comments 13/April
 - Not enough commits + changelog items to pass at this frequency.
@@ -21,3 +23,6 @@ DD-MM-YYYY - Richardo Wijaya <Richardoalvin.war@gmail.com||rwijaya@deakin.edu.au
 # Richardo apologies on what henry said on 13/April
 - My apologies that the commits + changelog items are not up to your standard at that time
 - Last week had been really packed and I will redeem it on these week
+
+# NOTE: 22-04-2018 - 25-04-2018 
+- Something was going on with my laptop and development had been halted for a while
