@@ -8,13 +8,14 @@
     <Button
         android:id="@+id/left"
         android:layout_width="250dp"
+        android:onClick="moveLeft"
         android:layout_height="match_parent"
         android:background="@android:color/transparent" />
 
     <Button
         android:id="@+id/right"
         android:layout_width="250dp"
-
+        android:onClick="moveRight"
         android:layout_height="match_parent"
         android:layout_gravity="right"
         android:background="@android:color/transparent"
@@ -63,5 +64,17 @@
         android:layout_height="128dp"
         android:background="@drawable/stand"
         android:translationZ="5dp"/>
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Money"
+        android:gravity="bottom"
+        android:id="@+id/money"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="17dp"
+        android:layout_marginEnd="17dp"
+        android:layout_marginBottom="20dp"
+        android:textSize="25dp"/>
 </RelativeLayout>

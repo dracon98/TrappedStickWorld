@@ -13,6 +13,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -45,20 +46,25 @@ public class MainActivity extends AppCompatActivity {
     public String[] text = {"\"You: Ahh Where is this? \"",
             "Hey Welcome to the StickWorld and this is gonna be your new house now",
             "You: Me? I cant even remember anything about myself...","" +
-            "Well you should be able to adapt with the condition here and you might be able to remember your past"};
+            "Well you should be able to adapt with the condition here and you might be able to remember your past",
+            ""};
     public ImageView main;
+    Player stats;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         main = (ImageView) findViewById(R.id.StickMan);
         main.setY(300);
+        TextView Money = (TextView) findViewById(R.id.money);
     //Player movement coding
+        Log.d("Agi", "onCreate: "+ stats.agi);
         Button Left = (Button) findViewById(R.id.left);
         Button Right = (Button) findViewById(R.id.right);
         ImageButton house = (ImageButton) findViewById(R.id.HouseDoor);
         ImageButton office = (ImageButton) findViewById(R.id.OfficeDoor);
         moveText = (TextView) findViewById(R.id.MovingText);
+        Money.setText("$" + String.valueOf(stats.money));
         house.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

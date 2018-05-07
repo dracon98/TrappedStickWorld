@@ -18,7 +18,7 @@ public class Database extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("CREATE TABLE PLAYER( ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT, HEALTH INTEGER, AGI INTEGER, STR INTEGER, INT INTEGER, ITEM TEXT, POSITION INTEGER, QUEST TEXT, DONE TEXT);");
+        sqLiteDatabase.execSQL("CREATE TABLE PLAYER( ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT, HEALTH INTEGER, AGI INTEGER, STR INTEGER, INTEL INTEGER, ITEM TEXT, MONEY INTEGER, QUEST TEXT, DONE TEXT);");
     }
 
     @Override
@@ -35,17 +35,18 @@ public class Database extends SQLiteOpenHelper {
         cv.put("HEALTH", 0);
         cv.put("AGI", 0);
         cv.put("STR", 0);
+        cv.put("INTEL",0);
         cv.put("ITEM", "0");
-        cv.put("POSITION", 0);
+        cv.put("MONEY", 0);
         cv.put("QUEST", "0");
         cv.put("DONE", "0");
         ContentValues cv2 = new ContentValues();
-        cv.put("ID", 0);
+        cv.put("ID", 1);
         cv.put("NAME", "0");
         cv.put("HEALTH", 0);
         cv.put("AGI", 0);
         cv.put("STR", 0);
-        cv.put("POSITION", 0);
+        cv.put("MONEY", 0);
         cv.put("QUEST", "0");
         cv.put("DONE", "0");
         if (!(cursor.moveToFirst())) {

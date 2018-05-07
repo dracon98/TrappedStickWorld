@@ -1,5 +1,6 @@
 package com.example.richardoalvin.trappedstickworld;
 
+import android.database.sqlite.SQLiteOpenHelper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
@@ -8,6 +9,7 @@ import android.content.Intent;
 public class MenuActivity extends AppCompatActivity {
 
     private Button NewGame;
+    Database connect;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -17,9 +19,11 @@ public class MenuActivity extends AppCompatActivity {
         NewGame.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
+                //connect.setup();
                 MoveToCustom();
             }
         });
+        connect = new Database(this,"",null,1);
     }
     //intent
     //move to custom activity

@@ -22,11 +22,15 @@ public class CustomActivity extends AppCompatActivity {
     private EditText Intel;
     private EditText Str;
     private ImageButton roll;
-
+    private int j;
+    private int n;
+    private int m;
+    Player stats;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custom);
+        //initialisation
         back = (ImageButton) findViewById(R.id.bback);
         back.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -59,7 +63,7 @@ public class CustomActivity extends AppCompatActivity {
             }
         });
     }
-    //Intent
+    //moving to main menu
         public void MoveToMenu(){
             try {
                 Intent k = new Intent(this, MenuActivity.class);
@@ -68,6 +72,7 @@ public class CustomActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+    //moving to main
         public void MoveToMain(){
             try {
                 Intent k = new Intent(this, MainActivity.class);
@@ -82,9 +87,12 @@ public class CustomActivity extends AppCompatActivity {
             int i = r.nextInt(10) + 1;
             int o = r.nextInt(10) + 1;
             int in = r.nextInt(10) + 1;
-            int j = 21 - o - i;
-            int n = 21 - in - i;
-            int m = 21 - in - o;
+            j = 21 - o - i;
+            n = 21 - in - i;
+            m = 21 - in - o;
+            stats.intel += m;
+            stats.str += n;
+            stats.agi += j;
             Agi.setText(String.valueOf(j));
             Str.setText(String.valueOf(n));
             Intel.setText(String.valueOf(m));
