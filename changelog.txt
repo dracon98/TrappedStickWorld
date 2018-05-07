@@ -14,6 +14,7 @@ DD-MM-YYYY - Richardo Wijaya <Richardoalvin.war@gmail.com||rwijaya@deakin.edu.au
              Item.Json is for complementary of the game 
 26-04-2018 * Database and any related to assessing data
 27-04-2018 * Completion of the main interface of the game and any miscellaneous thing
+02-05-2018 * House, Office, Text Movement implementation and changes
 
 # Henry comments 13/April
 - Not enough commits + changelog items to pass at this frequency.
