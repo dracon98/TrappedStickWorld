@@ -2,6 +2,7 @@ package com.example.richardoalvin.trappedstickworld;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.EditText;
@@ -25,12 +26,14 @@ public class CustomActivity extends AppCompatActivity {
     private int j;
     private int n;
     private int m;
+    Database connect;
     Player stats;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custom);
         //initialisation
+        connect = new Database(this,"",null,1);
         back = (ImageButton) findViewById(R.id.bback);
         back.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -45,6 +48,7 @@ public class CustomActivity extends AppCompatActivity {
         Agi.setEnabled(false);
         Str.setEnabled(false);
         Intel.setEnabled(false);
+        RandomPoint();
         //onclick
         //change the number on edit text
         roll = (ImageButton) findViewById(R.id.rollId);
@@ -76,6 +80,8 @@ public class CustomActivity extends AppCompatActivity {
         public void MoveToMain(){
             try {
                 Intent k = new Intent(this, MainActivity.class);
+                connect.add_stats(j,n,m);
+                Log.d("stats", connect.load_stats());
                 startActivity(k);
             } catch(Exception e) {
                 e.printStackTrace();
@@ -90,9 +96,6 @@ public class CustomActivity extends AppCompatActivity {
             j = 21 - o - i;
             n = 21 - in - i;
             m = 21 - in - o;
-            stats.intel += m;
-            stats.str += n;
-            stats.agi += j;
             Agi.setText(String.valueOf(j));
             Str.setText(String.valueOf(n));
             Intel.setText(String.valueOf(m));

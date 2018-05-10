@@ -26,8 +26,11 @@ import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.InputStream;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -40,8 +43,16 @@ public class MainActivity extends AppCompatActivity {
     final Timer myTimer = new Timer();
     Handler myHandler = new Handler();
     public float X;
+    TextView agiText;
+    TextView strText;
+    TextView intText;
     TextView moveText;
+    TextView bagItem;
+    ImageView statsButton;
+    Button Left;
+    Button Right;
     int i = 0;
+    LinearLayout sview;
     Dialog dialog;
     public String[] text = {"\"You: Ahh Where is this? \"",
             "Hey Welcome to the StickWorld and this is gonna be your new house now",
@@ -49,22 +60,28 @@ public class MainActivity extends AppCompatActivity {
             "Well you should be able to adapt with the condition here and you might be able to remember your past",
             ""};
     public ImageView main;
-    Player stats;
+    Database connect;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         main = (ImageView) findViewById(R.id.StickMan);
         main.setY(300);
+        bagItem = (TextView) findViewById(R.id.bag);
+        statsButton = (ImageButton) findViewById(R.id.stats);
         TextView Money = (TextView) findViewById(R.id.money);
+        sview = (LinearLayout) findViewById(R.id.statsView);
+        agiText = (TextView) findViewById(R.id.agi);
+        strText = (TextView) findViewById(R.id.str);
+        intText = (TextView) findViewById(R.id.intel);
     //Player movement coding
-        Log.d("Agi", "onCreate: "+ stats.agi);
-        Button Left = (Button) findViewById(R.id.left);
-        Button Right = (Button) findViewById(R.id.right);
+        connect = new Database(this,"",null,1);
+        Left = (Button) findViewById(R.id.left);
+        Right = (Button) findViewById(R.id.right);
         ImageButton house = (ImageButton) findViewById(R.id.HouseDoor);
         ImageButton office = (ImageButton) findViewById(R.id.OfficeDoor);
         moveText = (TextView) findViewById(R.id.MovingText);
-        Money.setText("$" + String.valueOf(stats.money));
+        Money.setText("$ "+connect.load_money() );
         house.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,6 +92,27 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Office();
+            }
+        });
+        statsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String stats = connect.load_stats();
+                List<String> statsArray = Arrays.asList(stats.split(","));
+                agiText.setText("AGI : " + statsArray.get(0));
+                strText.setText("STR : " + statsArray.get(1));
+                intText.setText("INT : " + statsArray.get(2));
+                bagItem.setText(connect.load_item());
+                if (sview.getVisibility() == View.INVISIBLE){
+                    sview.setVisibility(View.VISIBLE);
+                    Left.setVisibility(View.INVISIBLE);
+                    Right.setVisibility(View.INVISIBLE);
+                }
+                else{
+                    sview.setVisibility(View.INVISIBLE);
+                    Left.setVisibility(View.VISIBLE);
+                    Right.setVisibility(View.VISIBLE);
+                }
             }
         });
         Left.setOnTouchListener(new View.OnTouchListener() {
@@ -138,8 +176,11 @@ public class MainActivity extends AppCompatActivity {
     }
     private void mLeft(){
         ImageView imgDisplay = (ImageView) findViewById(R.id.StickMan);
-        imgDisplay.setX(X-50);
-        X = X-50;
+        if (X-50<=50){}
+        else {
+            imgDisplay.setX(X - 50);
+            X = X - 50;
+        }
     }
     private void mRight(){
         ImageView imgDisplay = (ImageView) findViewById(R.id.StickMan);

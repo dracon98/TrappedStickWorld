@@ -7,9 +7,31 @@
     android:orientation="vertical"
     tools:context="com.example.richardoalvin.trappedstickworld.MenuActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:id="@+id/alert"
+        android:background="@android:color/black"
+        android:orientation="vertical"
+        android:visibility="invisible">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ALERT!!"
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="@android:color/white"
+            android:textSize="20dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:text="YOU HAVE NOT MAKE ANY PROGRESS BEFORE"
+            />
+    </LinearLayout>
     <TextView
         android:id="@+id/stick"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TrappedStick"
@@ -31,7 +53,6 @@
         android:layout_height="wrap_content"
         android:text="CONTINUE"
         android:textSize="17dp"/>
-
     <Button
         android:id="@+id/info"
         android:layout_width="40dp"

@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -18,18 +20,32 @@ public class Office extends AppCompatActivity {
     final Timer myTimer = new Timer();
     Handler myHandler = new Handler();
     TextView moveText;
+    Database connect;
+    TextView Money;
+    ImageButton work;
     private int i = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_office);
-        //initialisation
+        //initialisation'
+        connect = new Database(this,"",null,1);
+        work = (ImageButton) findViewById(R.id.work);
+        Money = (TextView) findViewById(R.id.money);
         moveText = (TextView) findViewById(R.id.MovingText);
         ImageButton Back = (ImageButton) findViewById(R.id.back);
+        Money.setText("$ "+connect.load_money());
         Back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Main();
+            }
+        });
+        work.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                connect.add_money(50);
+                Money.setText("$ "+connect.load_money());
             }
         });
         TimerTask myTask = new TimerTask() {
@@ -38,6 +54,7 @@ public class Office extends AppCompatActivity {
             }
         };
         myTimer.schedule(myTask,0,2500);
+
     }
     //moving to main
     public void Main(){

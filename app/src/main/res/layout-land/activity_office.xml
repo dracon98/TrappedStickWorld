@@ -18,6 +18,7 @@
             android:layout_height="35dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
+            android:id="@+id/back"
             android:background="@drawable/back"
             android:layout_marginRight="80dp"/>
         <TextView
@@ -40,6 +41,7 @@
         android:layout_height="60dp"
         android:background="@drawable/work"
         android:layout_marginRight="20dp"
+        android:id="@+id/work"
         />
         <TextView
             android:layout_width="wrap_content"

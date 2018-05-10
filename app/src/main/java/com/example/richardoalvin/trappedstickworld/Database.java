@@ -7,13 +7,16 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Created by Richardo Alvin on 4/26/2018.
  */
 
 public class Database extends SQLiteOpenHelper {
     public Database(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, "playerdata.db", factory, version);
+        super(context, "playerData.db", factory, version);
     }
 
     @Override
@@ -36,25 +39,26 @@ public class Database extends SQLiteOpenHelper {
         cv.put("AGI", 0);
         cv.put("STR", 0);
         cv.put("INTEL",0);
-        cv.put("ITEM", "0");
-        cv.put("MONEY", 0);
+        cv.put("ITEM", "NONE");
+        cv.put("MONEY", 10);
         cv.put("QUEST", "0");
         cv.put("DONE", "0");
         ContentValues cv2 = new ContentValues();
-        cv.put("ID", 1);
-        cv.put("NAME", "0");
-        cv.put("HEALTH", 0);
-        cv.put("AGI", 0);
-        cv.put("STR", 0);
-        cv.put("MONEY", 0);
-        cv.put("QUEST", "0");
-        cv.put("DONE", "0");
+        cv2.put("NAME", "0");
+        cv2.put("HEALTH", 0);
+        cv2.put("AGI", 0);
+        cv2.put("STR", 0);
+        cv2.put("INTEL",0);
+        cv2.put("ITEM", "NONE");
+        cv2.put("MONEY", 10);
+        cv2.put("QUEST", "0");
+        cv2.put("DONE", "0");
         if (!(cursor.moveToFirst())) {
-            this.getWritableDatabase().insertOrThrow("PLAYER", "", cv);
             Log.d("create","0");
+            this.getWritableDatabase().insertOrThrow("PLAYER", "", cv);
         } else {
-            this.getWritableDatabase().update("PLAYER", cv2, "ID =" + 0 , null);
             Log.d("Update","1");
+            this.getWritableDatabase().update("PLAYER", cv2, "ID = 0",null);
         }
     }
     public int load() {
@@ -70,21 +74,55 @@ public class Database extends SQLiteOpenHelper {
     public String load_item(){
         Cursor cursor = this.getReadableDatabase().rawQuery("SELECT ITEM FROM PLAYER WHERE (ID = 0)", null);
         if (cursor.moveToFirst()) {
-            return String.valueOf(cursor.getString(0));
+            return cursor.getString(0);
         }
         return null;
     }
-    //if the character happen to get an item
-    public void add_item (String str) {
-        String old_str;
-        old_str = load_item();
-        Log.d("test", old_str);
+    public void add_stats (int str, int agi, int intel) {
+        String old_stats;
+        old_stats= load_stats();
+        List<String> stats = Arrays.asList(old_stats.split(","));
         ContentValues cv = new ContentValues();
-        cv.put("ITEM",  str + "," + old_str);
+        cv.put("AGI", Integer.valueOf(stats.get(0))+agi);
+        cv.put("STR", Integer.valueOf(stats.get(1))+str);
+        cv.put("INTEL", Integer.valueOf(stats.get(2))+intel);
+        this.getWritableDatabase().update("PLAYER", cv, "ID = 0" , null);
+    }
+    public void add_money (int mny) {
+        int old_mny;
+        old_mny = load_money();
+        Log.d("test", String.valueOf(old_mny));
+        ContentValues cv = new ContentValues();
+        cv.put("MONEY", old_mny+mny);
+        this.getWritableDatabase().update("PLAYER", cv, "ID = 0" , null);
+    }
+    public String load_stats(){
+        Cursor cursor = this.getReadableDatabase().rawQuery("SELECT AGI, STR, INTEL FROM PLAYER WHERE (ID = 0)", null);
+        if (cursor.moveToFirst()) {
+            return String.valueOf(cursor.getInt(0)+","+cursor.getInt(1)+","+cursor.getInt(2));
+        }
+        return null;
+    }
+    public int load_money(){
+        Cursor cursor = this.getReadableDatabase().rawQuery("SELECT MONEY FROM PLAYER WHERE (ID = 0)", null);
+        if (cursor.moveToFirst()) {
+            return cursor.getInt(0);
+        }
+        return 0;
+    }
+    //if the character happen to get an item
+    public void add_item (String item) {
+        String old_item;
+        old_item = load_item();
+        ContentValues cv = new ContentValues();
+        if(old_item == "NONE"){
+            cv.put("ITEM",  item);
+        }
+        else{cv.put("ITEM",  item + "," + old_item);}
         this.getWritableDatabase().update("PLAYER", cv, "ID = 0" , null);
     }
     public String load_quest(){
-        Cursor cursor = this.getReadableDatabase().rawQuery("SELECT ITEM FROM PLAYER WHERE (ID = 0)", null);
+        Cursor cursor = this.getReadableDatabase().rawQuery("SELECT QUEST FROM PLAYER WHERE (ID = 0)", null);
         if (cursor.moveToFirst()) {
             return String.valueOf(cursor.getString(0));
         }
@@ -98,4 +136,5 @@ public class Database extends SQLiteOpenHelper {
         cv.put("QUEST",  str + "," + old_str);
         this.getWritableDatabase().update("PLAYER", cv, "ID = 0" , null);
     }
+
 }
