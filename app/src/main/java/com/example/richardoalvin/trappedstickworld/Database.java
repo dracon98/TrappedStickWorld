@@ -16,12 +16,12 @@ import java.util.List;
 
 public class Database extends SQLiteOpenHelper {
     public Database(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, "playerData.db", factory, version);
+        super(context, "gameData.db", factory, version);
     }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("CREATE TABLE PLAYER( ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT, HEALTH INTEGER, AGI INTEGER, STR INTEGER, INTEL INTEGER, ITEM TEXT, MONEY INTEGER, QUEST TEXT, DONE TEXT);");
+        sqLiteDatabase.execSQL("CREATE TABLE PLAYER( ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT, HEALTH INTEGER, AGI INTEGER, STR INTEGER, INTEL INTEGER, ITEM TEXT, MONEY INTEGER, QUEST TEXT, DONE INTEGER);");
     }
 
     @Override
@@ -40,9 +40,9 @@ public class Database extends SQLiteOpenHelper {
         cv.put("STR", 0);
         cv.put("INTEL",0);
         cv.put("ITEM", "NONE");
-        cv.put("MONEY", 10);
+        cv.put("MONEY", 0);
         cv.put("QUEST", "0");
-        cv.put("DONE", "0");
+        cv.put("DONE", 0);
         ContentValues cv2 = new ContentValues();
         cv2.put("NAME", "0");
         cv2.put("HEALTH", 0);
@@ -50,9 +50,9 @@ public class Database extends SQLiteOpenHelper {
         cv2.put("STR", 0);
         cv2.put("INTEL",0);
         cv2.put("ITEM", "NONE");
-        cv2.put("MONEY", 10);
+        cv2.put("MONEY", 0);
         cv2.put("QUEST", "0");
-        cv2.put("DONE", "0");
+        cv2.put("DONE", 0);
         if (!(cursor.moveToFirst())) {
             Log.d("create","0");
             this.getWritableDatabase().insertOrThrow("PLAYER", "", cv);
@@ -69,7 +69,18 @@ public class Database extends SQLiteOpenHelper {
             return 1;
         }
     }
-
+    public int text_load(){
+        Cursor cursor = this.getReadableDatabase().rawQuery("SELECT DONE FROM PLAYER WHERE (ID = 0)", null);
+        if (cursor.moveToFirst()) {
+            return cursor.getInt(0);
+        }
+        return 0;
+    }
+    public void change_text (int state) {
+        ContentValues cv = new ContentValues();
+        cv.put("DONE", state);
+        this.getWritableDatabase().update("PLAYER", cv, "ID = 0" , null);
+    }
     //load item from database
     public String load_item(){
         Cursor cursor = this.getReadableDatabase().rawQuery("SELECT ITEM FROM PLAYER WHERE (ID = 0)", null);

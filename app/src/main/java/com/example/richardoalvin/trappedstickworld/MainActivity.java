@@ -56,9 +56,9 @@ public class MainActivity extends AppCompatActivity {
     Dialog dialog;
     public String[] text = {"\"You: Ahh Where is this? \"",
             "Hey Welcome to the StickWorld and this is gonna be your new house now",
-            "You: Me? I cant even remember anything about myself...","" +
+            "You: Me? I cant even remember anything about myself...",
             "Well you should be able to adapt with the condition here and you might be able to remember your past",
-            ""};
+            "Go on check you house you may find something or direction"};
     public ImageView main;
     Database connect;
     @Override
@@ -172,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
                 update_text(); // text update method
             }
         };
-        myTimer.schedule(myTask,0,2500);
+        myTimer.schedule(myTask,0,2000);
     }
     private void mLeft(){
         ImageView imgDisplay = (ImageView) findViewById(R.id.StickMan);
@@ -215,14 +215,16 @@ public class MainActivity extends AppCompatActivity {
 
     // update_text method related to a Runnable
     private void update_text() {
-
-        if(i < text.length) {
-            i++;
-            // text_data.setText(String.valueOf(i)); = avoid the RunTime error
-            myHandler.post(myRunnable); // relate this to a Runnable
-        } else {
-            myTimer.cancel(); // stop the timer
-            return;
+        if (connect.text_load() == 0) {
+            if (i < text.length) {
+                i++;
+                // text_data.setText(String.valueOf(i)); = avoid the RunTime error
+                myHandler.post(myRunnable); // relate this to a Runnable
+            } else {
+                myTimer.cancel(); // stop the timer
+                connect.change_text(1);
+                return;
+            }
         }
     }
         public void House(){
