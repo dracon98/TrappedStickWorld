@@ -49,11 +49,14 @@ public class MainActivity extends AppCompatActivity {
     TextView moveText;
     TextView bagItem;
     ImageView statsButton;
+    ImageButton office;
     Button Left;
     Button Right;
     int i = 0;
     LinearLayout sview;
+    ImageButton house;
     Dialog dialog;
+    TextView healthView;
     public String[] text = {"\"You: Ahh Where is this? \"",
             "Hey Welcome to the StickWorld and this is gonna be your new house now",
             "You: Me? I cant even remember anything about myself...",
@@ -68,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
         main = (ImageView) findViewById(R.id.StickMan);
         main.setY(300);
         bagItem = (TextView) findViewById(R.id.bag);
+        healthView = (TextView) findViewById(R.id.health);
         statsButton = (ImageButton) findViewById(R.id.stats);
         TextView Money = (TextView) findViewById(R.id.money);
         sview = (LinearLayout) findViewById(R.id.statsView);
@@ -76,22 +80,31 @@ public class MainActivity extends AppCompatActivity {
         intText = (TextView) findViewById(R.id.intel);
     //Player movement coding
         connect = new Database(this,"",null,1);
+        main.setX(connect.load_position());
         Left = (Button) findViewById(R.id.left);
         Right = (Button) findViewById(R.id.right);
-        ImageButton house = (ImageButton) findViewById(R.id.HouseDoor);
-        ImageButton office = (ImageButton) findViewById(R.id.OfficeDoor);
+        house = (ImageButton) findViewById(R.id.HouseDoor);
+        office = (ImageButton) findViewById(R.id.OfficeDoor);
         moveText = (TextView) findViewById(R.id.MovingText);
         Money.setText("$ "+connect.load_money() );
         house.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                House();
+                Log.d("location", "onClick: "+ (office.getX() - main.getX()));
+                Log.d("main", "onClick: "+ main.getX()+office.getX());
+                if (house.getX() - main.getX() < 200 && house.getX() - main.getX() > -200) {
+                    connect.position_change((int)main.getX());
+                    House();
+                }
             }
         });
         office.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Office();
+                if (office.getX() - main.getX() < 200 && office.getX() - main.getX() > -200) {
+                    connect.position_change((int)main.getX());
+                    Office();
+                }
             }
         });
         statsButton.setOnClickListener(new View.OnClickListener() {
@@ -103,6 +116,8 @@ public class MainActivity extends AppCompatActivity {
                 strText.setText("STR : " + statsArray.get(1));
                 intText.setText("INT : " + statsArray.get(2));
                 bagItem.setText(connect.load_item());
+                connect.change_health();
+                healthView.setText("Health : " + connect.load_health());
                 if (sview.getVisibility() == View.INVISIBLE){
                     sview.setVisibility(View.VISIBLE);
                     Left.setVisibility(View.INVISIBLE);
@@ -176,7 +191,8 @@ public class MainActivity extends AppCompatActivity {
     }
     private void mLeft(){
         ImageView imgDisplay = (ImageView) findViewById(R.id.StickMan);
-        if (X-50<=50){}
+        X = imgDisplay.getX();
+        if (X-50<0){}
         else {
             imgDisplay.setX(X - 50);
             X = X - 50;
@@ -184,6 +200,7 @@ public class MainActivity extends AppCompatActivity {
     }
     private void mRight(){
         ImageView imgDisplay = (ImageView) findViewById(R.id.StickMan);
+        X = imgDisplay.getX();
         imgDisplay.setX(X+50);
         X = X+50;
     }

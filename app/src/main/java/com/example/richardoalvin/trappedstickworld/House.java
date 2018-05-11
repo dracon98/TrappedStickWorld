@@ -17,7 +17,7 @@ public class House extends AppCompatActivity {
 
     public String[] text = {"This is your new house and here you can find your money",
             "You only have limited money which is $10",
-            "First Quest You need to go to the office and work over there"};
+            "[First Quest] You need to go to the office and work over there"};
     final Timer myTimer = new Timer();
     Handler myHandler = new Handler();
     Database connect;

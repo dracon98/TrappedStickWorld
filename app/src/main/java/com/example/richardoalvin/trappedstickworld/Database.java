@@ -16,12 +16,12 @@ import java.util.List;
 
 public class Database extends SQLiteOpenHelper {
     public Database(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, "gameData.db", factory, version);
+        super(context, "SQL.db", factory, version);
     }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("CREATE TABLE PLAYER( ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT, HEALTH INTEGER, AGI INTEGER, STR INTEGER, INTEL INTEGER, ITEM TEXT, MONEY INTEGER, QUEST TEXT, DONE INTEGER);");
+        sqLiteDatabase.execSQL("CREATE TABLE PLAYER( ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT, HEALTH INTEGER, AGI INTEGER, STR INTEGER, INTEL INTEGER, ITEM TEXT, MONEY INTEGER, POSITION INTEGER, QUEST INTEGER, DONE INTEGER);");
     }
 
     @Override
@@ -41,7 +41,8 @@ public class Database extends SQLiteOpenHelper {
         cv.put("INTEL",0);
         cv.put("ITEM", "NONE");
         cv.put("MONEY", 0);
-        cv.put("QUEST", "0");
+        cv.put("POSITION", 0);
+        cv.put("QUEST", 0);
         cv.put("DONE", 0);
         ContentValues cv2 = new ContentValues();
         cv2.put("NAME", "0");
@@ -51,7 +52,8 @@ public class Database extends SQLiteOpenHelper {
         cv2.put("INTEL",0);
         cv2.put("ITEM", "NONE");
         cv2.put("MONEY", 0);
-        cv2.put("QUEST", "0");
+        cv2.put("POSITION", 0);
+        cv2.put("QUEST", 0);
         cv2.put("DONE", 0);
         if (!(cursor.moveToFirst())) {
             Log.d("create","0");
@@ -132,20 +134,46 @@ public class Database extends SQLiteOpenHelper {
         else{cv.put("ITEM",  item + "," + old_item);}
         this.getWritableDatabase().update("PLAYER", cv, "ID = 0" , null);
     }
-    public String load_quest(){
+    public int load_quest(){
         Cursor cursor = this.getReadableDatabase().rawQuery("SELECT QUEST FROM PLAYER WHERE (ID = 0)", null);
         if (cursor.moveToFirst()) {
-            return String.valueOf(cursor.getString(0));
+            return cursor.getInt(0);
         }
-        return null;
+        return 0;
     }
-    public void add_quest (String str) {
-        String old_str;
-        old_str = load_quest();
-        Log.d("test", old_str);
+    public void quest_change (int quest) {
         ContentValues cv = new ContentValues();
-        cv.put("QUEST",  str + "," + old_str);
+        cv.put("QUEST", quest);
         this.getWritableDatabase().update("PLAYER", cv, "ID = 0" , null);
     }
+    public int load_position(){
+        Cursor cursor = this.getReadableDatabase().rawQuery("SELECT POSITION FROM PLAYER WHERE (ID = 0)", null);
+        if (cursor.moveToFirst()) {
+            return cursor.getInt(0);
+        }
+        return 0;
+    }
+    public void position_change (int x) {
+        ContentValues cv = new ContentValues();
+        cv.put("POSITION", x);
+        this.getWritableDatabase().update("PLAYER", cv, "ID = 0" , null);
+    }
+    public int load_health(){
+        Cursor cursor = this.getReadableDatabase().rawQuery("SELECT HEALTH FROM PLAYER WHERE (ID = 0)", null);
+        if (cursor.moveToFirst()) {
+            return cursor.getInt(0);
+        }
+        return 0;
+    }
+    public void change_health () {
+        String old_stats;
+        old_stats= load_stats();
+        List<String> stats = Arrays.asList(old_stats.split(","));
+        ContentValues cv = new ContentValues();
+        int str = Integer.valueOf(stats.get(1));
+        cv.put("HEALTH", 100+(str/2));
+        this.getWritableDatabase().update("PLAYER", cv, "ID = 0" , null);
+    }
+    //lo
 
 }

@@ -19,13 +19,19 @@ public class Office extends AppCompatActivity {
     public String[] text = {"This is the office, You may work over here and it cost your time outside",
             "Your salary will be depends on your intelligent","You may also loan money here",};
     public String[] text2 = {"Its preferable to go to your house first before going to the office",};
+    public String[] questComplete = {"Congratulations",
+            "You have completed the fist quest",
+            "you get 3 stats points for each attribute"};
     final Timer myTimer = new Timer();
+    final Timer myTimer2 = new Timer();
     Handler myHandler = new Handler();
+    Handler myHandler2 = new Handler();
     TextView moveText;
     Database connect;
     TextView Money;
     ImageButton work;
     private int i = 0;
+    private int j = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +53,17 @@ public class Office extends AppCompatActivity {
         work.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (connect.load_quest()==0){
+                    myTimer.cancel();
+                    connect.quest_change(1);
+                    connect.add_stats(3,3,3);
+                    TimerTask myTaskquest = new TimerTask()
+                    {public void run() {
+                            text_quest(); // text update method
+                    }
+                    };
+                    myTimer2.schedule(myTaskquest,0,2000);
+                }
                 connect.add_money(50);
                 Money.setText("$ "+connect.load_money());
             }
@@ -72,6 +89,12 @@ public class Office extends AppCompatActivity {
     final Runnable myRunnable = new Runnable() {
         public void run() {
             moveText.setText(text[i -1]); // update text
+        }
+    };
+    //runnable that will change text inside text array
+    final Runnable myRunnableQ = new Runnable() {
+        public void run() {
+            moveText.setText(questComplete[j -1]); // update text
         }
     };
     final Runnable myRunnable2 = new Runnable() {
@@ -101,6 +124,16 @@ public class Office extends AppCompatActivity {
                 myTimer.cancel(); // stop the timer
                 return;
             }
+        }
+    }
+    private void text_quest(){
+        if (j < questComplete.length) {
+            j++;
+            // text_data.setText(String.valueOf(i)); = avoid the RunTime error
+            myHandler2.post(myRunnableQ); // relate this to a Runnable
+        } else {
+            myTimer2.cancel(); // stop the timer
+            return;
         }
     }
 }

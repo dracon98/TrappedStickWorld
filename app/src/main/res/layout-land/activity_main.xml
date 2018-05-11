@@ -5,6 +5,10 @@
     android:layout_height="match_parent"
     tools:context="com.example.richardoalvin.trappedstickworld.MainActivity">
 
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
     <Button
         android:id="@+id/left"
         android:layout_width="250dp"
@@ -39,6 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/map1"></ImageView>
+
     </LinearLayout>
     <ImageButton
         android:layout_width="48dp"
@@ -77,7 +82,8 @@
         android:layout_marginRight="17dp"
         android:layout_marginEnd="17dp"
         android:layout_marginBottom="20dp"
-        android:textSize="25dp"/>
+        android:textSize="25dp"
+        android:textColor="@android:color/black"/>
     <ImageButton
         android:layout_width="60dp"
         android:layout_height="60dp"
@@ -115,9 +121,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginLeft="20dp"
-                android:layout_marginRight="100dp">
+                android:layout_marginRight="80dp">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -141,6 +147,14 @@
                     android:textColor="@android:color/black"
                     android:textSize="20dp"
                     android:layout_marginTop="10dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Health :"
+                    android:id="@+id/health"
+                    android:textColor="@android:color/black"
+                    android:textSize="20dp"
+                    android:layout_marginTop="10dp"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -152,7 +166,6 @@
                     android:layout_height="wrap_content"
                     android:text="BAG:"
                     android:textColor="@android:color/black"
-                    android:layout_marginLeft="20dp"
                     android:textSize="20dp"/>
                 <TextView
                     android:layout_width="wrap_content"
@@ -163,5 +176,4 @@
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-
 </RelativeLayout>
