@@ -53,7 +53,7 @@ public class Office extends AppCompatActivity {
         work.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (connect.load_quest()==0){
+                if (connect.load_quest()==0&&(connect.text_load()==2||connect.text_load()==3)){
                     myTimer.cancel();
                     connect.quest_change(1);
                     connect.add_stats(3,3,3);

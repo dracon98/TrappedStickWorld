@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     TextView intText;
     TextView moveText;
     TextView bagItem;
+    TextView dayText;
     ImageView statsButton;
     ImageButton office;
     Button Left;
@@ -86,6 +87,10 @@ public class MainActivity extends AppCompatActivity {
         house = (ImageButton) findViewById(R.id.HouseDoor);
         office = (ImageButton) findViewById(R.id.OfficeDoor);
         moveText = (TextView) findViewById(R.id.MovingText);
+        dayText = (TextView)findViewById(R.id.day);
+        String days = connect.load_time();
+        List<String> timesArray = Arrays.asList(days.split(","));
+        dayText.setText("Day "+timesArray.get(0));
         Money.setText("$ "+connect.load_money() );
         house.setOnClickListener(new View.OnClickListener() {
             @Override

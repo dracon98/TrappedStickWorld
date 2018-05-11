@@ -16,12 +16,12 @@ import java.util.List;
 
 public class Database extends SQLiteOpenHelper {
     public Database(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, "SQL.db", factory, version);
+        super(context, "SQLDatabase.db", factory, version);
     }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("CREATE TABLE PLAYER( ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT, HEALTH INTEGER, AGI INTEGER, STR INTEGER, INTEL INTEGER, ITEM TEXT, MONEY INTEGER, POSITION INTEGER, QUEST INTEGER, DONE INTEGER);");
+        sqLiteDatabase.execSQL("CREATE TABLE PLAYER( ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT, HEALTH INTEGER, AGI INTEGER, STR INTEGER, INTEL INTEGER, ITEM TEXT, MONEY INTEGER, POSITION INTEGER, QUEST INTEGER, DONE INTEGER, TIME TEXT);");
     }
 
     @Override
@@ -44,6 +44,7 @@ public class Database extends SQLiteOpenHelper {
         cv.put("POSITION", 0);
         cv.put("QUEST", 0);
         cv.put("DONE", 0);
+        cv.put("TIME", "0,12");
         ContentValues cv2 = new ContentValues();
         cv2.put("NAME", "0");
         cv2.put("HEALTH", 0);
@@ -55,6 +56,7 @@ public class Database extends SQLiteOpenHelper {
         cv2.put("POSITION", 0);
         cv2.put("QUEST", 0);
         cv2.put("DONE", 0);
+        cv2.put("TIME", "0,12");
         if (!(cursor.moveToFirst())) {
             Log.d("create","0");
             this.getWritableDatabase().insertOrThrow("PLAYER", "", cv);
@@ -104,9 +106,12 @@ public class Database extends SQLiteOpenHelper {
     public void add_money (int mny) {
         int old_mny;
         old_mny = load_money();
-        Log.d("test", String.valueOf(old_mny));
+        String old_stats;
+        old_stats= load_stats();
+        List<String> stats = Arrays.asList(old_stats.split(","));
+        int intel = (Integer.valueOf(stats.get(2)));
         ContentValues cv = new ContentValues();
-        cv.put("MONEY", old_mny+mny);
+        cv.put("MONEY", old_mny+mny+(intel/2));
         this.getWritableDatabase().update("PLAYER", cv, "ID = 0" , null);
     }
     public String load_stats(){
@@ -174,6 +179,27 @@ public class Database extends SQLiteOpenHelper {
         cv.put("HEALTH", 100+(str/2));
         this.getWritableDatabase().update("PLAYER", cv, "ID = 0" , null);
     }
-    //lo
+    public String load_time(){
+        Cursor cursor = this.getReadableDatabase().rawQuery("SELECT TIME FROM PLAYER WHERE (ID = 0)", null);
+        if (cursor.moveToFirst()) {
+            return cursor.getString(0);
+        }
+        return null;
+    }
+    public void change_time (int hour) {
+        String old_time;
+        old_time= load_time();
+        List<String> time = Arrays.asList(old_time.split(","));
+        ContentValues cv = new ContentValues();
+        int days = Integer.valueOf(time.get(0));
+        int hours = Integer.valueOf(time.get(1));
+        if (hours-hour <= 0){
+            cv.put("TIME",(Integer.valueOf(days)+1)+",12");
+        }
+        else{
+            cv.put("TIME",days+","+(Integer.valueOf(hours)-hour));
+        }
+        this.getWritableDatabase().update("PLAYER", cv, "ID = 0" , null);
+    }
 
 }
