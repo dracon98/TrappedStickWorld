@@ -12,6 +12,8 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -46,13 +48,24 @@ public class House extends AppCompatActivity {
                 Main();
             }
         });
+        String time = connect.load_time();
+        List<String> timeArray = Arrays.asList(time.split(","));
+        if (timeArray.get(2).equals("rest")){
+            Back.setVisibility(View.INVISIBLE);
+        }
         bedButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 houseView.setBackgroundColor(Color.BLACK);
                 blink.postDelayed(blinkRunnable,500);
+                if (myTimer!=null){
+                    myTimer.cancel();
+                }
                 connect.change_time(12);
-
+                connect.wake_up();
+                if (Back.getVisibility()==View.INVISIBLE){
+                    Back.setVisibility(View.VISIBLE);
+                }
             }
         });
         TimerTask myTask = new TimerTask() {

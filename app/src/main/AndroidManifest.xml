@@ -25,7 +25,8 @@
             android:name=".MainActivity"
             android:screenOrientation="landscape" />
         <activity android:name=".House" />
-        <activity android:name=".Office"/>
+        <activity android:name=".Office" />
+        <activity android:name=".NextMap"></activity>
     </application>
 
 </manifest>

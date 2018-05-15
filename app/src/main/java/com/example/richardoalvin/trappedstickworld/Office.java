@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -64,7 +66,13 @@ public class Office extends AppCompatActivity {
                     };
                     myTimer2.schedule(myTaskquest,0,2000);
                 }
-                connect.add_money(50);
+                connect.add_money(25);
+                connect.change_time(4);
+                String time = connect.load_time();
+                List<String> timeArray = Arrays.asList(time.split(","));
+                if(timeArray.get(2).equals("rest")){
+                    House();
+                }
                 Money.setText("$ "+connect.load_money());
             }
         });
@@ -80,6 +88,14 @@ public class Office extends AppCompatActivity {
     public void Main(){
         try {
             Intent k = new Intent(this, MainActivity.class);
+            startActivity(k);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public void House(){
+        try {
+            Intent k = new Intent(this, House.class);
             startActivity(k);
         } catch(Exception e) {
             e.printStackTrace();

@@ -13,6 +13,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Layout;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -54,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     Button Left;
     Button Right;
     int i = 0;
+    int speed;
     LinearLayout sview;
     ImageButton house;
     Dialog dialog;
@@ -92,6 +94,9 @@ public class MainActivity extends AppCompatActivity {
         List<String> timesArray = Arrays.asList(days.split(","));
         dayText.setText("Day "+timesArray.get(0));
         Money.setText("$ "+connect.load_money() );
+        String stats = connect.load_stats();
+        List<String> statsArray = Arrays.asList(stats.split(","));
+        speed = Integer.valueOf(statsArray.get(0))/4;
         house.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -122,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
                 intText.setText("INT : " + statsArray.get(2));
                 bagItem.setText(connect.load_item());
                 connect.change_health();
-                healthView.setText("Health : " + connect.load_health());
+                healthView.setText("Health : " + connect.load_curhealth()+"/"+ connect.load_health());
                 if (sview.getVisibility() == View.INVISIBLE){
                     sview.setVisibility(View.VISIBLE);
                     Left.setVisibility(View.INVISIBLE);
@@ -197,17 +202,20 @@ public class MainActivity extends AppCompatActivity {
     private void mLeft(){
         ImageView imgDisplay = (ImageView) findViewById(R.id.StickMan);
         X = imgDisplay.getX();
-        if (X-50<0){}
+        if (X-50-speed<0){}
         else {
-            imgDisplay.setX(X - 50);
-            X = X - 50;
+            imgDisplay.setX(X - 50-speed);
+            X = X - 50-speed;
         }
     }
     private void mRight(){
         ImageView imgDisplay = (ImageView) findViewById(R.id.StickMan);
         X = imgDisplay.getX();
-        imgDisplay.setX(X+50);
-        X = X+50;
+        imgDisplay.setX(X+50+speed);
+        X = X+50+speed;
+        if (X>moveText.getWidth()-80){
+            next_map();
+        }
     }
     private void changeR(){
         if (main.getBackground().getConstantState()== getResources().getDrawable(R.drawable.stand).getConstantState()
@@ -238,6 +246,7 @@ public class MainActivity extends AppCompatActivity {
     // update_text method related to a Runnable
     private void update_text() {
         if (connect.text_load() == 0) {
+            connect.change_curhealth(connect.load_health());
             if (i < text.length) {
                 i++;
                 // text_data.setText(String.valueOf(i)); = avoid the RunTime error
@@ -260,6 +269,14 @@ public class MainActivity extends AppCompatActivity {
     public void Office(){
         try {
             Intent k = new Intent(this, Office.class);
+            startActivity(k);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public void next_map(){
+        try {
+            Intent k = new Intent(this, NextMap.class);
             startActivity(k);
         } catch(Exception e) {
             e.printStackTrace();

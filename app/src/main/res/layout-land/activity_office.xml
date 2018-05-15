@@ -24,7 +24,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Money: $2000"
+            android:text="Money: $200"
             android:textSize="30dp"
             android:id="@+id/money"
             android:textColor="@android:color/black"
@@ -47,7 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="WORK +$50"
+            android:text="WORK +$25"
             android:textSize="40dp"
             android:layout_marginRight="60dp"
             android:textColor="@android:color/black"/>
@@ -57,7 +57,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_gravity="right"
-        android:layout_marginBottom="25dp">
+        android:layout_marginBottom="25dp"
+        android:focusable="true" android:focusableInTouchMode="true">
         <ImageButton
             android:layout_width="60dp"
             android:layout_height="60dp"
@@ -66,12 +67,14 @@
             android:layout_marginLeft="20dp"/>
         <EditText
             android:id="@+id/loan"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="125dp"
+            android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_marginRight="60dp"
-            android:text="Max $2000"
-            android:textSize="30dp"
+            android:hint="Max $200"
+            android:textSize="25dp"
+            android:focusable="true"
+            android:gravity="center"
             android:background="@android:color/white"
             android:textColor="@android:color/black" />
         <ImageButton
@@ -82,12 +85,13 @@
 
         <EditText
             android:id="@+id/pay"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="125dp"
+            android:layout_height="50dp"
             android:layout_gravity="center"
+            android:gravity="center"
             android:layout_marginRight="60dp"
-            android:text="Pay Loan"
-            android:textSize="30dp"
+            android:hint="Pay Loan"
+            android:textSize="25dp"
             android:background="@android:color/white"
             android:textColor="@android:color/black" />
 

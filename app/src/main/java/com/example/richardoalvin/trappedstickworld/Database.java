@@ -16,12 +16,12 @@ import java.util.List;
 
 public class Database extends SQLiteOpenHelper {
     public Database(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, "SQLDatabase.db", factory, version);
+        super(context, "Database.db", factory, version);
     }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("CREATE TABLE PLAYER( ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT, HEALTH INTEGER, AGI INTEGER, STR INTEGER, INTEL INTEGER, ITEM TEXT, MONEY INTEGER, POSITION INTEGER, QUEST INTEGER, DONE INTEGER, TIME TEXT);");
+        sqLiteDatabase.execSQL("CREATE TABLE PLAYER( ID INTEGER PRIMARY KEY AUTOINCREMENT, CURHEALTH INTEGER, HEALTH INTEGER, AGI INTEGER, STR INTEGER, INTEL INTEGER, ITEM TEXT, MONEY INTEGER, POSITION INTEGER, QUEST INTEGER, DONE INTEGER, TIME TEXT);");
     }
 
     @Override
@@ -34,7 +34,7 @@ public class Database extends SQLiteOpenHelper {
         Cursor cursor = this.getReadableDatabase().rawQuery("SELECT * FROM PLAYER WHERE (ID = 0)", null);
         ContentValues cv = new ContentValues();
         cv.put("ID", 0);
-        cv.put("NAME", "0");
+        cv.put("CURHEALTH", 0);
         cv.put("HEALTH", 0);
         cv.put("AGI", 0);
         cv.put("STR", 0);
@@ -44,9 +44,9 @@ public class Database extends SQLiteOpenHelper {
         cv.put("POSITION", 0);
         cv.put("QUEST", 0);
         cv.put("DONE", 0);
-        cv.put("TIME", "0,12");
+        cv.put("TIME", "0,12,awake");
         ContentValues cv2 = new ContentValues();
-        cv2.put("NAME", "0");
+        cv2.put("CURHEALTH", 0);
         cv2.put("HEALTH", 0);
         cv2.put("AGI", 0);
         cv2.put("STR", 0);
@@ -56,7 +56,7 @@ public class Database extends SQLiteOpenHelper {
         cv2.put("POSITION", 0);
         cv2.put("QUEST", 0);
         cv2.put("DONE", 0);
-        cv2.put("TIME", "0,12");
+        cv2.put("TIME", "0,12,awake");
         if (!(cursor.moveToFirst())) {
             Log.d("create","0");
             this.getWritableDatabase().insertOrThrow("PLAYER", "", cv);
@@ -111,7 +111,7 @@ public class Database extends SQLiteOpenHelper {
         List<String> stats = Arrays.asList(old_stats.split(","));
         int intel = (Integer.valueOf(stats.get(2)));
         ContentValues cv = new ContentValues();
-        cv.put("MONEY", old_mny+mny+(intel/2));
+        cv.put("MONEY", old_mny+mny+(intel/3));
         this.getWritableDatabase().update("PLAYER", cv, "ID = 0" , null);
     }
     public String load_stats(){
@@ -194,12 +194,49 @@ public class Database extends SQLiteOpenHelper {
         int days = Integer.valueOf(time.get(0));
         int hours = Integer.valueOf(time.get(1));
         if (hours-hour <= 0){
-            cv.put("TIME",(Integer.valueOf(days)+1)+",12");
+            cv.put("TIME",(Integer.valueOf(days)+1)+",12,rest");
+            bed_time();
         }
         else{
-            cv.put("TIME",days+","+(Integer.valueOf(hours)-hour));
+            cv.put("TIME",days+","+(Integer.valueOf(hours)-hour)+",awake");
         }
         this.getWritableDatabase().update("PLAYER", cv, "ID = 0" , null);
     }
-
+    public void wake_up() {
+        String old_time;
+        old_time= load_time();
+        List<String> time = Arrays.asList(old_time.split(","));
+        ContentValues cv = new ContentValues();
+        int days = Integer.valueOf(time.get(0));
+        int hours = Integer.valueOf(time.get(1));
+        cv.put("TIME",days+","+hours+",awake");
+        this.getWritableDatabase().update("PLAYER", cv, "ID = 0" , null);
+    }
+    public void bed_time () {
+        int old_health;
+        old_health= load_health();
+        ContentValues cv = new ContentValues();
+        cv.put("CURHEALTH",old_health);
+        this.getWritableDatabase().update("PLAYER", cv, "ID = 0" , null);
+    }
+    public int load_curhealth(){
+        Cursor cursor = this.getReadableDatabase().rawQuery("SELECT CURHEALTH FROM PLAYER WHERE (ID = 0)", null);
+        if (cursor.moveToFirst()) {
+            return cursor.getInt(0);
+        }
+        return 0;
+    }
+    public void change_curhealth (int itemPoint) {
+        int load_oldcurhealt;
+        load_oldcurhealt= load_curhealth();
+        int old_health;
+        old_health = load_health();
+        ContentValues cv = new ContentValues();
+        if (load_oldcurhealt+itemPoint>old_health){
+            cv.put("CURHEALTH",old_health);
+        }
+        else
+            cv.put("CURHEALTH", load_oldcurhealt+itemPoint);
+        this.getWritableDatabase().update("PLAYER", cv, "ID = 0" , null);
+    }
 }
