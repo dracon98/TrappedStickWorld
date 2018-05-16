@@ -1,127 +1,106 @@
 package com.example.richardoalvin.trappedstickworld;
 
-import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.res.ResourcesCompat;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Layout;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.w3c.dom.Text;
-
-import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import android.os.Handler;
-
-public class MainActivity extends AppCompatActivity {
-
+public class NextMap extends AppCompatActivity {
     Handler loops = new Handler();
     final Timer myTimer = new Timer();
     Handler myHandler = new Handler();
     public float X;
-
-    TextView dayText;
-    ImageView statsButton;
     TextView agiText;
     TextView strText;
     TextView intText;
     TextView moveText;
     TextView bagItem;
-    LinearLayout sview;
-    ImageButton office;
-    TextView healthView;
+    TextView dayText;
+    ImageView statsButton;
+    Button foodhall;
+    ImageButton weaponstore;
     Button Left;
     Button Right;
     int i = 0;
     int speed;
-
-    ImageButton house;
+    LinearLayout sview;
+    ImageButton gym;
     Dialog dialog;
-    public String[] text = {"\"You: Ahh Where is this? \"",
-            "Hey Welcome to the StickWorld and this is gonna be your new house now",
-            "You: Me? I cant even remember anything about myself...",
-            "Well you should be able to adapt with the condition here and you might be able to remember your past",
-            "Go on check you house you may find something or direction"};
+    TextView healthView;
+    public String[] text = {""};
     public ImageView main;
-    int move=40;
     Database connect;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_next_map);
         main = (ImageView) findViewById(R.id.StickMan);
         main.setY(300);
         bagItem = (TextView) findViewById(R.id.bag);
         healthView = (TextView) findViewById(R.id.health);
         statsButton = (ImageButton) findViewById(R.id.stats);
-
+        TextView Money = (TextView) findViewById(R.id.money);
         sview = (LinearLayout) findViewById(R.id.statsView);
         agiText = (TextView) findViewById(R.id.agi);
         strText = (TextView) findViewById(R.id.str);
         intText = (TextView) findViewById(R.id.intel);
-        TextView Money = (TextView) findViewById(R.id.money);
-    //Player movement coding
+        //Player movement coding
         connect = new Database(this,"",null,1);
         main.setX(connect.load_position());
-        connect.change_health();
         Left = (Button) findViewById(R.id.left);
         Right = (Button) findViewById(R.id.right);
-        house = (ImageButton) findViewById(R.id.HouseDoor);
-        office = (ImageButton) findViewById(R.id.OfficeDoor);
+        gym = (ImageButton) findViewById(R.id.gymdoor);
+        foodhall = (Button) findViewById(R.id.fooddoor);
+        weaponstore = (ImageButton)findViewById(R.id.shopdoor);
         moveText = (TextView) findViewById(R.id.MovingText);
         dayText = (TextView)findViewById(R.id.day);
         String days = connect.load_time();
         List<String> timesArray = Arrays.asList(days.split(","));
-        int hour = Integer.valueOf(timesArray.get(1));
-        dayText.setText("Day "+timesArray.get(0)+", "+ (24-(hour*2))+":00");
+        dayText.setText("Day "+timesArray.get(0));
         Money.setText("$ "+connect.load_money() );
-        if (connect.text_load()==0){
-            move = 0;
-        }
         String stats = connect.load_stats();
         List<String> statsArray = Arrays.asList(stats.split(","));
         speed = Integer.valueOf(statsArray.get(0))/4;
-        house.setOnClickListener(new View.OnClickListener() {
+        gym.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("location", "onClick: "+ (office.getX() - main.getX()));
-                Log.d("main", "onClick: "+ main.getX()+office.getX());
-                if (house.getX() - main.getX() < 200 && house.getX() - main.getX() > -200) {
-                    House();
+                Log.d("location", "onClick: "+ (gym.getX() - main.getX()));
+                Log.d("main", "onClick: "+ main.getX()+gym.getX());
+                if (gym.getX() - main.getX() < 200 && gym.getX() - main.getX() > -200) {
+                    connect.position_change((int)main.getX());
+                    Gym();
                 }
             }
         });
-        office.setOnClickListener(new View.OnClickListener() {
+        foodhall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (office.getX() - main.getX() < 200 && office.getX() - main.getX() > -200) {
+                if (foodhall.getX() - main.getX() < 200 && foodhall.getX() - main.getX() > -200) {
                     connect.position_change((int)main.getX());
-                    Office();
+                    Foodhall();
+                }
+            }
+        });
+        weaponstore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (weaponstore.getX() - main.getX() < 200 && weaponstore.getX() - main.getX() > -200) {
+                    connect.position_change((int)main.getX());
+                    WeaponStore();
                 }
             }
         });
@@ -134,16 +113,19 @@ public class MainActivity extends AppCompatActivity {
                 strText.setText("STR : " + statsArray.get(1));
                 intText.setText("INT : " + statsArray.get(2));
                 bagItem.setText(connect.load_item());
+                connect.change_health();
                 healthView.setText("Health : " + connect.load_curhealth()+"/"+ connect.load_health());
                 if (sview.getVisibility() == View.INVISIBLE){
                     sview.setVisibility(View.VISIBLE);
                     Left.setVisibility(View.INVISIBLE);
                     Right.setVisibility(View.INVISIBLE);
+                    foodhall.setVisibility(View.INVISIBLE);
                 }
                 else{
                     sview.setVisibility(View.INVISIBLE);
                     Left.setVisibility(View.VISIBLE);
                     Right.setVisibility(View.VISIBLE);
+                    foodhall.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -209,21 +191,22 @@ public class MainActivity extends AppCompatActivity {
     private void mLeft(){
         ImageView imgDisplay = (ImageView) findViewById(R.id.StickMan);
         X = imgDisplay.getX();
-        if (X-move-speed<0){}
+        if (X-50-speed<-20){
+            connect.position_change(moveText.getWidth()-120);
+            connect.change_time(1);
+            BackToMain();
+        }
         else {
-            imgDisplay.setX(X - move-speed);
-            X = X - move-speed;
+            imgDisplay.setX(X - 50-speed);
+            X = X - 50-speed;
         }
     }
     private void mRight(){
         ImageView imgDisplay = (ImageView) findViewById(R.id.StickMan);
         X = imgDisplay.getX();
-        imgDisplay.setX(X+move+speed);
-        X = X+move+speed;
+        imgDisplay.setX(X+50+speed);
+        X = X+50+speed;
         if (X>moveText.getWidth()-80){
-            connect.position_change(0);
-            connect.change_time(1);
-            next_map();
         }
     }
     private void changeR(){
@@ -261,51 +244,42 @@ public class MainActivity extends AppCompatActivity {
                 // text_data.setText(String.valueOf(i)); = avoid the RunTime error
                 myHandler.post(myRunnable); // relate this to a Runnable
             } else {
-                connect.change_text(1);
-                move = 40;
                 myTimer.cancel(); // stop the timer
+                connect.change_text(1);
                 return;
             }
         }
     }
-        public void House(){
-            try {
-                Intent k = new Intent(this, House.class);
-                startActivity(k);
-            } catch(Exception e) {
-                e.printStackTrace();
-            }
-        }
-    public void Office(){
+    public void BackToMain(){
         try {
-            Intent k = new Intent(this, Office.class);
+            Intent k = new Intent(this, MainActivity.class);
             startActivity(k);
         } catch(Exception e) {
             e.printStackTrace();
         }
     }
-    public void next_map(){
+    public void Foodhall(){
         try {
-            Intent k = new Intent(this, NextMap.class);
+            Intent k = new Intent(this, Foodhall.class);
             startActivity(k);
         } catch(Exception e) {
             e.printStackTrace();
         }
     }
-        // load json coding
-    /*public void loadJson(View view){
-        Resources res = getResources();
-        InputStream is = res.openRawResource(R.raw.venue);
-        Scanner scanner = new Scanner(is);
-        StringBuilder builder = new StringBuilder();
-        while (scanner.hasNextLine()){
-            builder.append(scanner.nextLine());
+    public void WeaponStore(){
+        try {
+            Intent k = new Intent(this, WeaponStore.class);
+            startActivity(k);
+        } catch(Exception e) {
+            e.printStackTrace();
         }
-        parseJson(builder.toString());
     }
-
-    private void parseJson(String s) {
-        TextView txtDisplay = (TextView) findViewById(R.id.textView);
-        txtDisplay.setText(s);
-    }*/
+    public void Gym(){
+        try {
+            Intent k = new Intent(this, Gym.class);
+            startActivity(k);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

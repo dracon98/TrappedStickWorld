@@ -9,7 +9,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.Arrays;
@@ -29,7 +31,14 @@ public class House extends AppCompatActivity {
     ImageButton Back;
     ImageButton bedButton;
     TextView moveText;
-    LinearLayout houseView;
+    RelativeLayout houseView;
+    ImageView statsButton;
+    TextView agiText;
+    TextView strText;
+    TextView intText;
+    TextView healthView;
+    TextView bagItem;
+    LinearLayout sview;
     private int i = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,14 +46,23 @@ public class House extends AppCompatActivity {
         setContentView(R.layout.activity_house);
         //initialisation
         connect = new Database(this,"",null,1);
+        bagItem = (TextView) findViewById(R.id.bag);
+        healthView = (TextView) findViewById(R.id.health);
+        statsButton = (ImageButton) findViewById(R.id.stats);
+
+        sview = (LinearLayout) findViewById(R.id.statsView);
+        agiText = (TextView) findViewById(R.id.agi);
+        strText = (TextView) findViewById(R.id.str);
+        intText = (TextView) findViewById(R.id.intel);
         Log.d("test", "update_text: "+connect.text_load());
         moveText = (TextView) findViewById(R.id.MovingText);
         bedButton = (ImageButton) findViewById(R.id.bed);
         Back = (ImageButton) findViewById(R.id.back);
-        houseView = (LinearLayout) findViewById(R.id.house);
+        houseView = (RelativeLayout) findViewById(R.id.house);
         Back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                connect.position_change(0);
                 Main();
             }
         });
@@ -53,6 +71,24 @@ public class House extends AppCompatActivity {
         if (timeArray.get(2).equals("rest")){
             Back.setVisibility(View.INVISIBLE);
         }
+        statsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String stats = connect.load_stats();
+                List<String> statsArray = Arrays.asList(stats.split(","));
+                agiText.setText("AGI : " + statsArray.get(0));
+                strText.setText("STR : " + statsArray.get(1));
+                intText.setText("INT : " + statsArray.get(2));
+                bagItem.setText(connect.load_item());
+                healthView.setText("Health : " + connect.load_curhealth()+"/"+ connect.load_health());
+                if (sview.getVisibility() == View.INVISIBLE){
+                    sview.setVisibility(View.VISIBLE);
+                }
+                else{
+                    sview.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
         bedButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -61,7 +97,6 @@ public class House extends AppCompatActivity {
                 if (myTimer!=null){
                     myTimer.cancel();
                 }
-                connect.change_time(12);
                 connect.wake_up();
                 if (Back.getVisibility()==View.INVISIBLE){
                     Back.setVisibility(View.VISIBLE);

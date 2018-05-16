@@ -111,7 +111,7 @@ public class Database extends SQLiteOpenHelper {
         List<String> stats = Arrays.asList(old_stats.split(","));
         int intel = (Integer.valueOf(stats.get(2)));
         ContentValues cv = new ContentValues();
-        cv.put("MONEY", old_mny+mny+(intel/3));
+        cv.put("MONEY", old_mny+mny+(intel/6));
         this.getWritableDatabase().update("PLAYER", cv, "ID = 0" , null);
     }
     public String load_stats(){
@@ -133,7 +133,7 @@ public class Database extends SQLiteOpenHelper {
         String old_item;
         old_item = load_item();
         ContentValues cv = new ContentValues();
-        if(old_item == "NONE"){
+        if(old_item.equals("NONE")){
             cv.put("ITEM",  item);
         }
         else{cv.put("ITEM",  item + "," + old_item);}

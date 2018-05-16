@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/store_bg">
+    <TextView
+        android:id="@+id/MovingText"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:textColor="@android:color/white"
+        android:background="@android:color/background_dark" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageButton
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:id="@+id/back"
+            android:background="@drawable/back"
+            android:layout_marginRight="80dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Money: $200"
+            android:textSize="30dp"
+            android:id="@+id/money"
+            android:textColor="@android:color/black"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="right"
+        android:layout_marginBottom="25dp">
+        <ImageButton
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/flasks"
+            android:id="@+id/bpotion"
+            android:layout_marginRight="20dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="$999\n+33 ALL STATS\n FULL health"
+            android:gravity="center"
+            android:layout_marginRight="60dp"
+            android:layout_gravity="center"
+            android:textColor="@android:color/black"
+            android:textSize="20dp"
+            android:background="@android:color/holo_blue_bright"/>
+        <ImageButton
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/soda"
+            android:id="@+id/shealth"
+            android:layout_marginRight="20dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="$10\n+10 health"
+            android:gravity="center"
+            android:layout_marginRight="60dp"
+            android:layout_gravity="center"
+            android:textColor="@android:color/black"
+            android:textSize="20dp"
+            android:background="@android:color/holo_blue_bright"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="right"
+        android:layout_marginBottom="25dp"
+        android:focusable="true" android:focusableInTouchMode="true">
+        <ImageButton
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/testtube"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:id="@+id/spotion"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="$40\n+5 health\n+1 ALL STATS"
+            android:layout_marginRight="60dp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:textColor="@android:color/black"
+            android:textSize="20dp"
+            android:background="@android:color/holo_blue_bright"/>
+        <ImageButton
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/hamburger"
+            android:layout_marginRight="20dp"
+            android:id="@+id/burger"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="$20\n+25 health"
+            android:gravity="center"
+            android:layout_marginRight="60dp"
+            android:layout_gravity="center"
+            android:textColor="@android:color/black"
+            android:textSize="20dp"
+            android:background="@android:color/holo_blue_bright"/>
+
+    </LinearLayout>
+</LinearLayout>

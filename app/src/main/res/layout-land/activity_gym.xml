@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gym_bg">
+    <TextView
+        android:id="@+id/MovingText"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:textColor="@android:color/white"
+        android:background="@android:color/background_dark" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageButton
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:id="@+id/back"
+            android:background="@drawable/back"
+            android:layout_marginRight="220dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Time:"
+            android:textSize="30dp"
+            android:id="@+id/time"
+            android:textColor="@android:color/black"
+            android:layout_gravity="center" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="right"
+        android:layout_marginBottom="25dp">
+        <ImageButton
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/dumbell"
+            android:id="@+id/dumbbell"
+            android:layout_marginRight="20dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="STR INCREASE"
+            android:gravity="center"
+            android:layout_marginRight="60dp"
+            android:layout_gravity="center"
+            android:textColor="@android:color/black"
+            android:textSize="20dp"
+            android:background="@android:color/holo_blue_bright"/>
+        <ImageButton
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/book"
+            android:id="@+id/book"
+            android:layout_marginRight="20dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="INT INCREASE"
+            android:gravity="center"
+            android:layout_marginRight="60dp"
+            android:layout_gravity="center"
+            android:textColor="@android:color/black"
+            android:textSize="20dp"
+            android:background="@android:color/holo_blue_bright"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="right"
+        android:layout_marginBottom="25dp"
+        android:focusable="true" android:focusableInTouchMode="true">
+        <ImageButton
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/treadmill"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:id="@+id/treadmill"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="AGI INCREASE"
+            android:layout_marginRight="60dp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:textColor="@android:color/black"
+            android:textSize="20dp"
+            android:background="@android:color/holo_blue_bright"/>
+        <ImageButton
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/fight"
+            android:layout_marginRight="20dp"
+            android:id="@+id/training"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TRAINING"
+            android:gravity="center"
+            android:layout_marginRight="60dp"
+            android:layout_gravity="center"
+            android:textColor="@android:color/black"
+            android:textSize="20dp"
+            android:background="@android:color/holo_blue_bright"/>
+
+    </LinearLayout>
+</LinearLayout>

@@ -20,7 +20,6 @@ public class Office extends AppCompatActivity {
 
     public String[] text = {"This is the office, You may work over here and it cost your time outside",
             "Your salary will be depends on your intelligent","You may also loan money here",};
-    public String[] text2 = {"Its preferable to go to your house first before going to the office",};
     public String[] questComplete = {"Congratulations",
             "You have completed the fist quest",
             "you get 3 stats points for each attribute"};
@@ -45,7 +44,10 @@ public class Office extends AppCompatActivity {
         moveText = (TextView) findViewById(R.id.MovingText);
         ImageButton Back = (ImageButton) findViewById(R.id.back);
         Money.setText("$ "+connect.load_money());
-        Log.d("test", "update_text: "+connect.text_load());
+        if (connect.text_load()<2)
+        {
+            moveText.setText("Its preferable to go to your house first before going to the office");
+        }
         Back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -113,11 +115,6 @@ public class Office extends AppCompatActivity {
             moveText.setText(questComplete[j -1]); // update text
         }
     };
-    final Runnable myRunnable2 = new Runnable() {
-        public void run() {
-            moveText.setText(text2[i -1]); // update text
-        }
-    };
     // update_text method related to a Runnable
     private void update_text() {
         if(connect.text_load()==2) {
@@ -128,16 +125,6 @@ public class Office extends AppCompatActivity {
             } else {
                 myTimer.cancel(); // stop the timer
                 connect.change_text(3);
-                return;
-            }
-        }
-        if(connect.text_load()==1){
-            if (i < text2.length) {
-                i++;
-                // text_data.setText(String.valueOf(i)); = avoid the RunTime error
-                myHandler.post(myRunnable2); // relate this to a Runnable
-            } else {
-                myTimer.cancel(); // stop the timer
                 return;
             }
         }

@@ -26,7 +26,11 @@
             android:screenOrientation="landscape" />
         <activity android:name=".House" />
         <activity android:name=".Office" />
-        <activity android:name=".NextMap"></activity>
+        <activity android:name=".NextMap" />
+        <activity android:name=".Foodhall" />
+        <activity android:name=".Gym" />
+        <activity android:name=".WeaponStore" />
+        <activity android:name=".Scene"></activity>
     </application>
 
 </manifest>
