@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
@@ -25,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
@@ -39,10 +41,11 @@ import java.util.TimerTask;
 import android.os.Handler;
 
 public class MainActivity extends AppCompatActivity {
-
+    //declaration
     Handler loops = new Handler();
     final Timer myTimer = new Timer();
     Handler myHandler = new Handler();
+    MediaPlayer backgroundsong;
     public float X;
 
     TextView dayText;
@@ -59,14 +62,10 @@ public class MainActivity extends AppCompatActivity {
     Button Right;
     int i = 0;
     int speed;
-
+    int lane;
     ImageButton house;
     Dialog dialog;
-    public String[] text = {"\"You: Ahh Where is this? \"",
-            "Hey Welcome to the StickWorld and this is gonna be your new house now",
-            "You: Me? I cant even remember anything about myself...",
-            "Well you should be able to adapt with the condition here and you might be able to remember your past",
-            "Go on check you house you may find something or direction"};
+    String[] text;
     public ImageView main;
     int move=40;
     Database connect;
@@ -74,8 +73,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        main = (ImageView) findViewById(R.id.StickMan);
-        main.setY(300);
+        //database connection
+        connect = new Database(this,"",null,1);
+        //load json file
+        loadJson();
+        //media player that will go off after going to venue
+        backgroundsong = MediaPlayer.create(this,R.raw.donkeykongshorty);
+        backgroundsong.start();
+        backgroundsong.setLooping(true);
+
+
+
+    //Initialisation
         bagItem = (TextView) findViewById(R.id.bag);
         healthView = (TextView) findViewById(R.id.health);
         statsButton = (ImageButton) findViewById(R.id.stats);
@@ -85,33 +94,54 @@ public class MainActivity extends AppCompatActivity {
         strText = (TextView) findViewById(R.id.str);
         intText = (TextView) findViewById(R.id.intel);
         TextView Money = (TextView) findViewById(R.id.money);
-    //Player movement coding
-        connect = new Database(this,"",null,1);
-        main.setX(connect.load_position());
-        connect.change_health();
         Left = (Button) findViewById(R.id.left);
         Right = (Button) findViewById(R.id.right);
         house = (ImageButton) findViewById(R.id.HouseDoor);
         office = (ImageButton) findViewById(R.id.OfficeDoor);
         moveText = (TextView) findViewById(R.id.MovingText);
         dayText = (TextView)findViewById(R.id.day);
+        main = (ImageView) findViewById(R.id.StickMan);
+
+        //defining declared objects
+        main.setY(300);
+
+        main.setX(connect.load_position());
+        connect.change_health();
         String days = connect.load_time();
         List<String> timesArray = Arrays.asList(days.split(","));
         int hour = Integer.valueOf(timesArray.get(1));
         dayText.setText("Day "+timesArray.get(0)+", "+ (24-(hour*2))+":00");
         Money.setText("$ "+connect.load_money() );
+        //if condition of text view interface
         if (connect.text_load()==0){
             move = 0;
         }
+        if (connect.load_quest()==1){
+            moveText.setText("Q: You need to go to office and and work once");
+        }
+        if (connect.load_quest()==2){
+            moveText.setText("Q: You need to go to next town by moving to the right");
+        }
+        if (connect.load_quest()==3){
+            moveText.setText("Q: You need to go to gym and beat the enemy on the training");
+        }
+        if (connect.load_quest()==4){
+            moveText.setText("Q: You need to go to weapon shop and buy knife");
+        }
+        if (connect.load_quest()==5){
+            moveText.setText("Q: You need to increase you stats and finish all the monster waves");
+        }
+        //defining speed
         String stats = connect.load_stats();
         List<String> statsArray = Arrays.asList(stats.split(","));
         speed = Integer.valueOf(statsArray.get(0))/4;
+        //onclicks
+        //venue can only be clicked when near
         house.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("location", "onClick: "+ (office.getX() - main.getX()));
-                Log.d("main", "onClick: "+ main.getX()+office.getX());
                 if (house.getX() - main.getX() < 200 && house.getX() - main.getX() > -200) {
+                    backgroundsong.stop();
                     House();
                 }
             }
@@ -121,10 +151,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (office.getX() - main.getX() < 200 && office.getX() - main.getX() > -200) {
                     connect.position_change((int)main.getX());
+                    backgroundsong.stop();
                     Office();
                 }
             }
         });
+        //stats button all of the button will become invisible when this button is clicked
+        //defining the objcts
         statsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -147,6 +180,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+        //movement left
         Left.setOnTouchListener(new View.OnTouchListener() {
 
             @Override
@@ -172,7 +206,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             };
         });
-
+        //movement right
         Right.setOnTouchListener(new View.OnTouchListener() {
 
             @Override
@@ -199,13 +233,14 @@ public class MainActivity extends AppCompatActivity {
                 }
             };
         });
-        TimerTask myTask = new TimerTask() {
-            public void run() {
-                update_text(); // text update method
-            }
-        };
-        myTimer.schedule(myTask,0,2000);
+            TimerTask myTask = new TimerTask() {
+                public void run() {
+                    update_text(); // text update method
+                }
+            };
+            myTimer.schedule(myTask, 0, 2000);
     }
+    //onclick
     private void mLeft(){
         ImageView imgDisplay = (ImageView) findViewById(R.id.StickMan);
         X = imgDisplay.getX();
@@ -215,6 +250,7 @@ public class MainActivity extends AppCompatActivity {
             X = X - move-speed;
         }
     }
+    //onclick
     private void mRight(){
         ImageView imgDisplay = (ImageView) findViewById(R.id.StickMan);
         X = imgDisplay.getX();
@@ -223,9 +259,11 @@ public class MainActivity extends AppCompatActivity {
         if (X>moveText.getWidth()-80){
             connect.position_change(0);
             connect.change_time(1);
+            backgroundsong.stop();
             next_map();
         }
     }
+    // changing position
     private void changeR(){
         if (main.getBackground().getConstantState()== getResources().getDrawable(R.drawable.stand).getConstantState()
                 ||main.getBackground().getConstantState()== getResources().getDrawable(R.drawable.stand1).getConstantState())
@@ -233,6 +271,7 @@ public class MainActivity extends AppCompatActivity {
         else
             main.setBackgroundResource(R.drawable.stand);
     }
+    //changing position
     private void changeL(){
         if (main.getBackground().getConstantState()== getResources().getDrawable(R.drawable.stand).getConstantState()
                 ||main.getBackground().getConstantState()== getResources().getDrawable(R.drawable.stand1).getConstantState())
@@ -268,6 +307,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+    //move to house
         public void House(){
             try {
                 Intent k = new Intent(this, House.class);
@@ -276,6 +316,7 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+        //move to office
     public void Office(){
         try {
             Intent k = new Intent(this, Office.class);
@@ -284,6 +325,7 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+    //move to next map
     public void next_map(){
         try {
             Intent k = new Intent(this, NextMap.class);
@@ -292,20 +334,40 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-        // load json coding
-    /*public void loadJson(View view){
+    //load json file
+    public void loadJson() {
         Resources res = getResources();
-        InputStream is = res.openRawResource(R.raw.venue);
+        //read json file
+        InputStream is = res.openRawResource(R.raw.text);
         Scanner scanner = new Scanner(is);
         StringBuilder builder = new StringBuilder();
-        while (scanner.hasNextLine()){
+        //move json file to string builder
+        while (scanner.hasNextLine()) {
             builder.append(scanner.nextLine());
         }
         parseJson(builder.toString());
     }
-
+    //parsing the string string builder
     private void parseJson(String s) {
-        TextView txtDisplay = (TextView) findViewById(R.id.textView);
-        txtDisplay.setText(s);
-    }*/
+        try{
+            //going down through each of the branches
+            JSONObject root = new JSONObject(s);
+            JSONObject txt = root.getJSONObject("text");
+            JSONArray stories = txt.getJSONArray("story");
+            for (int n=0; n<stories.length();n++){
+                JSONObject story = stories.getJSONObject(n);
+                //when id equal to text load then
+                if (story.getInt("id")==connect.text_load()){
+                    JSONArray storylines = story.getJSONArray("storyline");
+                    //add text to text array
+                    text = new String[storylines.length()];
+                    for (int j =0; j<storylines.length();j++){
+                        text[j] = storylines.getString(j);
+                    }
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -1,6 +1,7 @@
 package com.example.richardoalvin.trappedstickworld;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.media.Image;
 import android.os.Handler;
@@ -14,16 +15,21 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class House extends AppCompatActivity {
 
-    public String[] text = {"This is your new house and here you can find your money",
-            "You only have limited money which is $10",
-            "[First Quest] You need to go to the office and work over there"};
+    //declaration
+    public String[] text;
     final Timer myTimer = new Timer();
     Handler myHandler = new Handler();
     Handler blink = new Handler();
@@ -44,8 +50,11 @@ public class House extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_house);
-        //initialisation
+        //connecting to database
         connect = new Database(this,"",null,1);
+        //load text json
+        loadJson();
+        //initialisation
         bagItem = (TextView) findViewById(R.id.bag);
         healthView = (TextView) findViewById(R.id.health);
         statsButton = (ImageButton) findViewById(R.id.stats);
@@ -54,11 +63,13 @@ public class House extends AppCompatActivity {
         agiText = (TextView) findViewById(R.id.agi);
         strText = (TextView) findViewById(R.id.str);
         intText = (TextView) findViewById(R.id.intel);
-        Log.d("test", "update_text: "+connect.text_load());
+
         moveText = (TextView) findViewById(R.id.MovingText);
         bedButton = (ImageButton) findViewById(R.id.bed);
         Back = (ImageButton) findViewById(R.id.back);
         houseView = (RelativeLayout) findViewById(R.id.house);
+        //divining all of the declared object
+        //oncliks
         Back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -68,12 +79,15 @@ public class House extends AppCompatActivity {
         });
         String time = connect.load_time();
         List<String> timeArray = Arrays.asList(time.split(","));
+        //back is not visible when status is rest
         if (timeArray.get(2).equals("rest")){
             Back.setVisibility(View.INVISIBLE);
         }
+        //onclick stats button
         statsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //divining all of the declared object
                 String stats = connect.load_stats();
                 List<String> statsArray = Arrays.asList(stats.split(","));
                 agiText.setText("AGI : " + statsArray.get(0));
@@ -89,6 +103,7 @@ public class House extends AppCompatActivity {
                 }
             }
         });
+        //sleep
         bedButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -97,6 +112,7 @@ public class House extends AppCompatActivity {
                 if (myTimer!=null){
                     myTimer.cancel();
                 }
+                connect.full_loadcurhealth();
                 connect.wake_up();
                 if (Back.getVisibility()==View.INVISIBLE){
                     Back.setVisibility(View.VISIBLE);
@@ -134,8 +150,8 @@ public class House extends AppCompatActivity {
             } else {
                 myTimer.cancel();// stop the timer
                 connect.add_money(10);
+                connect.quest_change(1);
                 connect.change_text(2);
-
             }
         }
     }
@@ -145,6 +161,40 @@ public class House extends AppCompatActivity {
             Intent k = new Intent(this, MainActivity.class);
             startActivity(k);
         } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+    //load json
+    public void loadJson() {
+        Resources res = getResources();
+        InputStream is = res.openRawResource(R.raw.text);
+        Scanner scanner = new Scanner(is);
+        StringBuilder builder = new StringBuilder();
+        //read all of json file
+        while (scanner.hasNextLine()) {
+            builder.append(scanner.nextLine());
+        }
+        parseJson(builder.toString());
+    }
+    //parsing json tree
+    private void parseJson(String s) {
+        try{
+            //goes to all branches
+            JSONObject root = new JSONObject(s);
+            JSONObject txt = root.getJSONObject("text");
+            JSONArray stories = txt.getJSONArray("story");
+            for (int n=0; n<stories.length();n++){
+                JSONObject story = stories.getJSONObject(n);
+                if (story.getInt("id")==connect.text_load()){
+                    JSONArray storylines = story.getJSONArray("storyline");
+                    //adding text to array
+                    text = new String[storylines.length()];
+                    for (int j =0; j<storylines.length();j++){
+                        text[j] = storylines.getString(j);
+                    }
+                }
+            }
+        } catch (JSONException e) {
             e.printStackTrace();
         }
     }

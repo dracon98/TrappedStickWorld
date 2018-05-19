@@ -1,0 +1,81 @@
+ {
+    "text": {
+      "story": [
+        {
+          "id": 0,
+          "storyline": [
+            "You: Ahh Where is this? ",
+            "Hey Welcome to the StickWorld and this is gonna be your new house now",
+            "You: Me? I cant even remember anything about myself...",
+            "Well you should be able to adapt with the condition here and you might be able to remember your past",
+            "You can only go to a place which is near your location by clicking the door",
+            "Go on check you house you may find something or direction"
+          ]
+        },
+        {
+          "id": 1,
+          "storyline": [
+            "This is your new house and here you can find your money",
+            "You only have limited money which is $10",
+            "What you will get is differed by your stats",
+            "STR is for Health, AGI is for Movement speed, INT for Income",
+            "Q: You need to go to the office and work over there"
+          ]
+        },
+        {
+          "id": 2,
+          "storyline": [
+            "This is the office, You may work over here and it cost your time outside",
+            "Your salary will be depends on your intelligent",
+            "Q: work for once by pressing the image button"
+          ]
+        },
+        {
+          "id": 3,
+          "storyline": [
+            "Hey You have reached the your neighbour city",
+            "There is a food hall, weapon store, and gym training",
+            "Q: Go to food hall and buy small potion to see how things work"
+          ]
+        }
+      ],
+      "quest": [
+        {
+          "id": 1,
+          "completed": [
+            "Congratulations",
+            "You have completed the fist quest",
+            "you get 1 stats points for each attribute",
+            "Try to go to the next city by moving to the right",
+            " from your city until you reach the border or more"
+          ]
+        },
+        {
+          "id": 2,
+          "completed": [
+            "Congratulations you have completed quest 2",
+            "You were granted with 1 point stats",
+            "Next you need to go to gym to learn how to train and get more stats"
+          ]
+        },
+        {
+          "id": 3,
+          "completed": [
+            "Congratulations you have beaten the enemy",
+            "You got 3 overall stats",
+            "Next You need to go to weapon store where",
+            " you can buy your weapon to enhance your damage",
+            "Q: Go to Weapon store and buy a knife"
+          ]
+        },
+        {
+          "id": 4,
+          "completed": [
+            "You have bought completed the quest by buying a knife",
+            "You will be granted 1 overall stats",
+            "Next You need to fight the waves to go back"
+          ]
+        }
+      ]
+    }
+ }

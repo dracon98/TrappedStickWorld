@@ -1,54 +1,34 @@
 {
 	"npc": [
 		{
-			"name": "Seated NPC",
-			"gender": "Male",
-			"item": "Cigarrete",
-			"status": "Barely alive"
+			"id": 1,
+			"health": 100,
+			"damage": 10,
+			"item": ["knife"]
 		},
 		{
-			"name": "Dead NPC",
-			"gender": "Male",
-			"item": [
-				"Blood",
-				"knife"
-			],
-			"status": "Dead by knife"
+			"id": 2,
+			"health": 150,
+			"damage": 20,
+			"item": ["knife"]
 		},
 		{
-			"name": "Suspected NPC",
-			"gender": "Male",
-			"item": "Face mask",
-			"status": "Angry"
+			"id": 3,
+			"health": 250,
+			"damage": 30,
+			"item": ["knife","knuckle"]
 		},
 		{
-			"name": "Sick NPC",
-			"gender": "Female",
-			"item": "Hospital robe",
-			"status": "In a brink of dead"
+			"id": 4,
+			"health": 500,
+			"damage": 40,
+			"item": ["knife","knuckle","axe"]
 		},
 		{
-			"name": "Gangster NPC",
-			"gender": "Male",
-			"item": [
-				"knife",
-				"bullet",
-				"pistol",
-				"knuckle"
-			],
-			"status": "Wickedly healthy"
-		},
-		{
-			"name": "The first NPC",
-			"gender": "Unknown",
-			"item": "Unknown",
-			"status": "Bored but happy"
-		},
-		{
-			"name": "The second NPC",
-			"gender": "Unknown",
-			"item": "skateboard",
-			"status": "Angry but tired"
+			"id": 5,
+			"health": 999,
+			"damage": 60,
+			"item": ["knife","knuckle","axe","gun"]
 		}
 	]
 }

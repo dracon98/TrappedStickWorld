@@ -1,5 +1,6 @@
 package com.example.richardoalvin.trappedstickworld;
 
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,6 +18,7 @@ import java.util.Random;
 
 public class CustomActivity extends AppCompatActivity {
 
+    MediaPlayer Backgroundsong;
     private ImageButton back;
     private Button Start;
     private EditText Agi;
@@ -27,17 +29,23 @@ public class CustomActivity extends AppCompatActivity {
     private int n;
     private int m;
     Database connect;
-    Player stats;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custom);
-        //initialisation
+        //background song player
+        //looping
+        Backgroundsong = MediaPlayer.create(this,R.raw.custom);
+        Backgroundsong.start();
+        Backgroundsong.setLooping(true);
+        //setting a connection to database
         connect = new Database(this,"",null,1);
+        //initialisation
         back = (ImageButton) findViewById(R.id.bback);
         back.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
+                Backgroundsong.stop();
                 MoveToMenu();
             }
     });
@@ -63,6 +71,7 @@ public class CustomActivity extends AppCompatActivity {
         Start.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
+                Backgroundsong.stop();
                 MoveToMain();
             }
         });
@@ -70,6 +79,7 @@ public class CustomActivity extends AppCompatActivity {
     //moving to main menu
         public void MoveToMenu(){
             try {
+                //intent moving
                 Intent k = new Intent(this, MenuActivity.class);
                 startActivity(k);
             } catch(Exception e) {
@@ -79,9 +89,9 @@ public class CustomActivity extends AppCompatActivity {
     //moving to main
         public void MoveToMain(){
             try {
+                //intent moving
                 Intent k = new Intent(this, MainActivity.class);
                 connect.add_stats(j,n,m);
-                Log.d("stats", connect.load_stats());
                 startActivity(k);
             } catch(Exception e) {
                 e.printStackTrace();
@@ -89,6 +99,7 @@ public class CustomActivity extends AppCompatActivity {
         }
         //randomise stats point
         public  void RandomPoint(){
+            //algorithm
             Random r = new Random();
             int i = r.nextInt(10) + 1;
             int o = r.nextInt(10) + 1;
@@ -96,6 +107,7 @@ public class CustomActivity extends AppCompatActivity {
             j = 21 - o - i;
             n = 21 - in - i;
             m = 21 - in - o;
+            //renew textview
             Agi.setText(String.valueOf(j));
             Str.setText(String.valueOf(n));
             Intel.setText(String.valueOf(m));

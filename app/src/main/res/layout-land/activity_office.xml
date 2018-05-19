@@ -35,7 +35,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_gravity="right"
-        android:layout_marginBottom="25dp">
+        android:layout_marginBottom="25dp"
+        android:layout_marginTop="50dp">
     <ImageButton
         android:layout_width="60dp"
         android:layout_height="60dp"
@@ -52,49 +53,7 @@
             android:layout_marginRight="60dp"
             android:textColor="@android:color/black"/>
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="right"
-        android:layout_marginBottom="25dp"
-        android:focusable="true" android:focusableInTouchMode="true">
-        <ImageButton
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:background="@drawable/loanbtn"
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"/>
-        <EditText
-            android:id="@+id/loan"
-            android:layout_width="125dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:layout_marginRight="60dp"
-            android:hint="Max $200"
-            android:textSize="25dp"
-            android:focusable="true"
-            android:gravity="center"
-            android:background="@android:color/white"
-            android:textColor="@android:color/black" />
-        <ImageButton
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:background="@drawable/pay"
-            android:layout_marginRight="20dp"/>
 
-        <EditText
-            android:id="@+id/pay"
-            android:layout_width="125dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:layout_marginRight="60dp"
-            android:hint="Pay Loan"
-            android:textSize="25dp"
-            android:background="@android:color/white"
-            android:textColor="@android:color/black" />
 
-    </LinearLayout>
 
 </LinearLayout>

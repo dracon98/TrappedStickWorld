@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/scene">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="100/100"
+        android:textSize="20dp"
+        android:textColor="@android:color/black"
+        android:id="@+id/enemyhealth"
+        android:layout_below="@+id/energy"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="45dp"
+        android:layout_marginEnd="45dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Energy:"
+        android:textSize="20dp"
+        android:layout_alignBottom="@+id/energy"
+        android:layout_toLeftOf="@+id/energy"
+        android:layout_toStartOf="@+id/energy" />
+    <TextView
+        android:id="@+id/wave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/energy"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="72dp"
+        android:text="wave 1"
+        android:textColor="@android:color/black"
+        android:textSize="40dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0/0"
+        android:id="@+id/health"
+        android:textSize="20dp"
+        android:textColor="@android:color/black"
+        android:layout_below="@+id/energy"
+        android:layout_alignLeft="@+id/knife"
+        android:layout_alignStart="@+id/knife"
+        android:layout_marginLeft="28dp"
+        android:layout_marginStart="28dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="axe"
+        android:id="@+id/axe"
+        android:layout_alignBaseline="@+id/gun"
+        android:layout_alignBottom="@+id/gun"
+        android:layout_alignRight="@+id/wave"
+        android:layout_alignEnd="@+id/wave" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="knuckle"
+        android:id="@+id/knuckle"
+        android:layout_alignBaseline="@+id/knife"
+        android:layout_alignBottom="@+id/knife"
+        android:layout_toLeftOf="@+id/wave"
+        android:layout_toStartOf="@+id/wave" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="knife"
+        android:id="@+id/knife"
+        android:layout_marginBottom="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="27dp"
+        android:layout_marginStart="27dp" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="gun"
+        android:id="@+id/gun"
+        android:layout_alignBaseline="@+id/knife"
+        android:layout_alignBottom="@+id/knife"
+        android:layout_toRightOf="@+id/energy"
+        android:layout_toEndOf="@+id/energy" />
+
+    <ProgressBar
+        android:id="@+id/energy"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="200dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="13dp"
+        android:progress="40"
+        android:max="100"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>

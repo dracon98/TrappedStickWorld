@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageButton
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:id="@+id/back"
+            android:background="@drawable/backwhite"
+            android:layout_marginRight="400dp"/>
+        <ImageButton
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="80dp"
+            android:layout_marginTop="20dp"
+            android:id="@+id/right"
+            android:background="@drawable/backwhite"
+            android:rotation="180"/>
+        </LinearLayout>
+        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textMoving"
+        android:text="Congratulations You have managed to clear up all the waves \n You now can go home and if you want to try more \n press right and you can go keep challenging the sixth boss"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:textSize="30dp"
+            android:textColor="@android:color/white"
+        />
+</LinearLayout>

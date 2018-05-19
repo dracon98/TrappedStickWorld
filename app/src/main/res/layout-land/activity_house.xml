@@ -120,6 +120,7 @@
                 android:layout_width="480dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_marginTop="60dp"
                 android:background="@drawable/bed"
                 android:layout_marginRight="30dp"/>
         </LinearLayout>

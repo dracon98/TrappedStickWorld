@@ -30,7 +30,9 @@
         <activity android:name=".Foodhall" />
         <activity android:name=".Gym" />
         <activity android:name=".WeaponStore" />
-        <activity android:name=".Scene"></activity>
+        <activity android:name=".Scene" />
+        <activity android:name=".Waves" />
+        <activity android:name=".Win"></activity>
     </application>
 
 </manifest>
