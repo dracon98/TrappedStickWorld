@@ -15,11 +15,19 @@
             android:layout_marginTop="20dp"
             android:id="@+id/back"
             android:background="@drawable/backwhite"
-            android:layout_marginRight="400dp"/>
+            android:layout_marginRight="170dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/days"
+            android:text="10 days"
+            android:textSize="40dp"
+            android:layout_marginTop="20dp"
+            android:textColor="@android:color/white"/>
         <ImageButton
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:layout_marginLeft="80dp"
+            android:layout_marginLeft="170dp"
             android:layout_marginTop="20dp"
             android:id="@+id/right"
             android:background="@drawable/backwhite"

@@ -105,7 +105,7 @@ public class Waves extends AppCompatActivity {
         Axe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                attack(3, 3);
+                attack(3, 2);
                 enemyAttack();
                 quit();
             }
@@ -113,7 +113,7 @@ public class Waves extends AppCompatActivity {
         Knuckle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                attack(2, 2);
+                attack(2, 0);
                 enemyAttack();
                 quit();
 
@@ -122,7 +122,7 @@ public class Waves extends AppCompatActivity {
         Gun.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                attack(4, 6);
+                attack(4, 4);
                 enemyAttack();
                 quit();
             }
@@ -170,7 +170,9 @@ public class Waves extends AppCompatActivity {
                     connect.change_curhealth(-((i * enemyDmg) + (weaponDmg * enemyDmg)));
                 }
             }
-            weaponDmg += 2;
+            if(count>2) {
+                weaponDmg += 2;
+            }
         }
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -186,7 +188,19 @@ public class Waves extends AppCompatActivity {
     //quit if both enemy and player dead the player failed to beat the enemy
     // if the enemy wave 6 was beaten then go to win
     private void quit() {
-        if(connect.load_curhealth()<=0||curEnemyhealth<=0){
+        if (connect.load_curhealth()<=0&&curEnemyhealth<=0){
+            connect.add_stats(-Str / 10, -Agi / 10, -Int / 10);
+            connect.change_time(12);
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    // Do something after 0.5s = 500ms
+                    sleep();
+                }
+            }, 500);
+        }
+        else{
             if (connect.load_curhealth() <= 0) {
                 connect.add_stats(-Str / 10, -Agi / 10, -Int / 10);
                 connect.change_time(12);
@@ -202,7 +216,9 @@ public class Waves extends AppCompatActivity {
             if (curEnemyhealth <= 0) {
                 connect.add_stats(Str / 4, Agi / 4, Int / 4);
                 connect.change_time(3);
-                connect.change_wave();
+                if (connect.load_wave()!=12){
+                    connect.change_wave();
+                }
                 final Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     @Override
@@ -218,18 +234,6 @@ public class Waves extends AppCompatActivity {
                     }
                 }, 500);
             }
-        }
-        else if (connect.load_curhealth()<=0&&curEnemyhealth<=0){
-            connect.add_stats(-Str / 10, -Agi / 10, -Int / 10);
-            connect.change_time(12);
-            final Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    // Do something after 0.5s = 500ms
-                    sleep();
-                }
-            }, 500);
         }
     }
     //check sleep status
@@ -273,6 +277,9 @@ public class Waves extends AppCompatActivity {
     public void loadJson() {
         Resources res = getResources();
         InputStream is = res.openRawResource(R.raw.npc);
+        if (connect.load_wave()>=6){
+            is = res.openRawResource(R.raw.npc_hard);
+        }
         Scanner scanner = new Scanner(is);
         StringBuilder builder = new StringBuilder();
         while (scanner.hasNextLine()) {

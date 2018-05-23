@@ -128,7 +128,7 @@ public class Database extends SQLiteOpenHelper {
     }
     //load stats
     public String load_stats(){
-        Cursor cursor = this.getReadableDatabase().rawQuery("SELECT STR, AGI, INTEL FROM PLAYER WHERE (ID = 0)", null);
+        Cursor cursor = this.getReadableDatabase().rawQuery("SELECT AGI, STR, INTEL FROM PLAYER WHERE (ID = 0)", null);
         if (cursor.moveToFirst()) {
             return String.valueOf(cursor.getInt(0)+","+cursor.getInt(1)+","+cursor.getInt(2));
         }
@@ -201,7 +201,7 @@ public class Database extends SQLiteOpenHelper {
         List<String> stats = Arrays.asList(old_stats.split(","));
         ContentValues cv = new ContentValues();
         int str = Integer.valueOf(stats.get(1));
-        cv.put("HEALTH", 100+(str/2));
+        cv.put("HEALTH", 100+(str*2));
         this.getWritableDatabase().update("PLAYER", cv, "ID = 0" , null);
     }
     //load wave

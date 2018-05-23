@@ -98,7 +98,7 @@ public class Scene extends AppCompatActivity {
             public void run() {
                 // Do something after 0.5s = 500ms
                 hitPlayer();
-                enemyHealth.setText(connect.load_curhealth() + "/" + connect.load_health());
+                healthText.setText(connect.load_curhealth() + "/" + connect.load_health());
             }
         }, 500);
     }

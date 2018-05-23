@@ -159,7 +159,10 @@ public class Gym extends AppCompatActivity {
         else
             connect.add_stats(0,0,Integer.valueOf(statsArray.get(2)) / 6);
         connect.change_time(4);
-        CurTime.setText(connect.load_time()+":00");
+        String times = connect.load_time();
+        List<String> timesArray = Arrays.asList(times.split(","));
+        int hour = Integer.valueOf(timesArray.get(1));
+        CurTime.setText("Time : "+ (24-(hour*2))+":00");
         sleep();
     }
     private void text_quest(){

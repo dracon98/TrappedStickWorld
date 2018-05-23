@@ -91,7 +91,7 @@ public class CustomActivity extends AppCompatActivity {
             try {
                 //intent moving
                 Intent k = new Intent(this, MainActivity.class);
-                connect.add_stats(j,n,m);
+                connect.add_stats(n,j,m);
                 startActivity(k);
             } catch(Exception e) {
                 e.printStackTrace();

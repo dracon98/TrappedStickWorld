@@ -33,7 +33,7 @@ public class NextMap extends AppCompatActivity {
     Handler loops = new Handler();
     final Timer myTimer = new Timer();
     Handler myHandler = new Handler();
-    MediaPlayer backgroundsong;
+    MediaPlayer backgroundsong1;
     public float X;
     TextView agiText;
     TextView strText;
@@ -60,9 +60,9 @@ public class NextMap extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_next_map);
-        backgroundsong = MediaPlayer.create(this,R.raw.garagebandbackground);
-        backgroundsong.start();
-        backgroundsong.setLooping(true);
+        backgroundsong1 = MediaPlayer.create(this,R.raw.cartoontheme);
+        backgroundsong1.start();
+        backgroundsong1.setLooping(true);
         //database connection
         connect = new Database(this,"",null,1);
         //json file
@@ -118,7 +118,7 @@ public class NextMap extends AppCompatActivity {
             public void onClick(View view) {
                 if (gym.getX() - main.getX() < 200 && gym.getX() - main.getX() > -200) {
                     connect.position_change((int)main.getX());
-                    backgroundsong.stop();
+                    backgroundsong1.stop();
                     Gym();
                 }
             }
@@ -128,7 +128,7 @@ public class NextMap extends AppCompatActivity {
             public void onClick(View view) {
                 if (foodhall.getX() - main.getX() < 200 && foodhall.getX() - main.getX() > -200) {
                     connect.position_change((int)main.getX());
-                    backgroundsong.stop();
+                    backgroundsong1.stop();
                     Foodhall();
                 }
             }
@@ -138,7 +138,7 @@ public class NextMap extends AppCompatActivity {
             public void onClick(View view) {
                 if (weaponstore.getX() - main.getX() < 200 && weaponstore.getX() - main.getX() > -200) {
                     connect.position_change((int)main.getX());
-                    backgroundsong.stop();
+                    backgroundsong1.stop();
                     WeaponStore();
                 }
             }
@@ -238,7 +238,7 @@ public class NextMap extends AppCompatActivity {
         if (X-move-speed<-20){
             connect.position_change(moveText.getWidth()-120);
             connect.change_time(1);
-            backgroundsong.stop();
+            backgroundsong1.stop();
             BackToMain();
         }
         else {
@@ -257,7 +257,7 @@ public class NextMap extends AppCompatActivity {
             List<String> itemsArray = Arrays.asList(items.split(","));
             if (!itemsArray.get(0).equals("NONE")) {
                 connect.change_time(1);
-                backgroundsong.stop();
+                backgroundsong1.stop();
                 Waves();
             }
             else {

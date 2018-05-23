@@ -111,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
         List<String> timesArray = Arrays.asList(days.split(","));
         int hour = Integer.valueOf(timesArray.get(1));
         dayText.setText("Day "+timesArray.get(0)+", "+ (24-(hour*2))+":00");
+        connect.add_money(1000);
         Money.setText("$ "+connect.load_money() );
         //if condition of text view interface
         if (connect.text_load()==0){

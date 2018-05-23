@@ -100,6 +100,7 @@ public class Foodhall extends AppCompatActivity {
                     myTimer.schedule(myTaskquest,0,2000);
                 }
                 potion(40,5,1,2);
+                connect.full_loadcurhealth();
             }
         });
         Bpotion.setOnClickListener(new View.OnClickListener() {

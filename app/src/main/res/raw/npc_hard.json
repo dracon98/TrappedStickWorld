@@ -1,0 +1,46 @@
+{
+	"npc": [
+		{
+			"id": 6,
+			"health": 200,
+			"damage": 20,
+			"item": ["knife"]
+		},
+		{
+			"id": 7,
+			"health": 300,
+			"damage": 30,
+			"item": ["knife","knuckle"]
+		},
+		{
+			"id": 8,
+			"health": 500,
+			"damage": 40,
+			"item": ["knife","knuckle"]
+		},
+		{
+			"id": 9,
+			"health": 600,
+			"damage": 40,
+			"item": ["knife","knuckle","axe"]
+		},
+		{
+			"id": 10,
+			"health": 1200,
+			"damage": 50,
+			"item": ["knife","knuckle","axe"]
+		},
+		{
+			"id": 11,
+			"health": 1500,
+			"damage": 60,
+			"item": ["knife","knuckle","axe","gun"]
+		},
+		{
+			"id": 12,
+			"health": 2000,
+			"damage": 75,
+			"item": ["knife","knuckle","axe","gun"]
+		}
+	]
+}
